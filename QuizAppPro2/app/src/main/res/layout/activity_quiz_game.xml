@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Views.QuizGameActivity">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/quesCont_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:fontFamily="sans-serif-medium"
+            android:text="Pregunta:"
+            android:textSize="15sp"
+            tools:text="Pregunta: 1/10 " />
+
+        <TextView
+            android:id="@+id/pistas_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:fontFamily="sans-serif-medium"
+            android:text="Pistas:"
+            android:textSize="15sp"
+            tools:text="Pistas 3/3" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/quesNum_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="15dp"
+        android:backgroundTint="#009E0000"
+        android:fontFamily="sans-serif-black"
+        android:text="Pregunta:"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        tools:text="Pregunta 1:" />
+
+    <TextView
+        android:id="@+id/quesTl_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="sans-serif"
+        android:maxLength="210"
+        android:maxLines="6"
+        android:textAlignment="center"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@+id/answers_linearLayout2"
+        app:layout_constraintEnd_toStartOf="@+id/nxt_Btn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/prev_Btn"
+        app:layout_constraintTop_toBottomOf="@+id/quesNum_text"
+        tools:text="HOLA MUNDO COMO ESTAN ESTO ES UNA PREGUNTA BIEN VERGA" />
+
+    <Button
+        android:id="@+id/prev_Btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:maxWidth="50dp"
+        android:maxHeight="50dp"
+        android:text="@string/prev_btntext"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_max="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="50dp"
+        android:layout_marginLeft="15dp" />
+
+
+    <Button
+        android:id="@+id/nxt_Btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:maxWidth="50dp"
+        android:maxHeight="50dp"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:src="@drawable/ic_nxt_game_btn24dp"
+        android:text=">"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="50dp"
+        android:layout_marginRight="15dp" />
+
+    <LinearLayout
+        android:id="@+id/answers_linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/nxt_Btn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/prev_Btn"
+        app:layout_constraintTop_toBottomOf="@+id/quesTl_text">
+
+        <Button
+            android:id="@+id/answ1_btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="5dp"
+            android:maxWidth="100dp"
+            android:maxHeight="50dp"
+            android:maxLines="2"
+            android:minWidth="100dp"
+            android:minHeight="50dp"
+            android:minLines="1"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            tools:text="¿ Respuesta Correcta ?" />
+
+        <Button
+            android:id="@+id/answ2_btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="5dp"
+            android:maxWidth="100dp"
+            android:maxHeight="50dp"
+            android:maxLines="2"
+            android:minWidth="100dp"
+            android:minHeight="50dp"
+            android:minLines="1"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            tools:text="¿ Respuesta Correcta ?" />
+
+        <Button
+            android:id="@+id/answ3_btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="5dp"
+            android:maxWidth="100dp"
+            android:maxHeight="50dp"
+            android:maxLines="2"
+            android:minWidth="100dp"
+            android:minHeight="50dp"
+            android:minLines="1"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            tools:text="¿ Respuesta Correcta ?" />
+
+        <Button
+            android:id="@+id/answ4_btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="4dp"
+            android:maxWidth="100dp"
+            android:maxHeight="50dp"
+            android:maxLines="2"
+            android:minWidth="100dp"
+            android:minHeight="50dp"
+            android:minLines="1"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            tools:text="¿ Respuesta Correcta ?" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

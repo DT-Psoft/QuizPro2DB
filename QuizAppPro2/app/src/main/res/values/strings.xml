@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">QuizAppPro2</string>
+    <string name="prvGameBtn">Anterior</string>
+
+    <string name="nxtGameBtn">Siguiente</string>
+    <string name="scoreText">Tu PUNTUACION FUE DE: </string>
+    <string name="prev_btntext"><![CDATA[<]]></string>
+
+</resources>
