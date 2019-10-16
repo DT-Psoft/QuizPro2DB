@@ -1,4 +1,4 @@
-package com.example.quizapppro2.Class
+package com.example.quizapppro2.Class.Entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -11,7 +11,7 @@ data class User_Configuration (
     @field:ColumnInfo(name = "number_of_questions") var number_of_questions: Int,
     @field:ColumnInfo(name = "number_of_categories") var number_of_categories: Int,
     @field:ColumnInfo(name = "all_categories") var all_categories: Int,
-    @PrimaryKey @ColumnInfo(name = "categories_selected") var categories_selected: String,
+    @ColumnInfo(name = "categories_selected") var categories_selected: String,
     @field:ColumnInfo(name = "dificulty") var dificulty: Int,
     @field:ColumnInfo(name = "clues_on") var clues_on: Int,
     @field:ColumnInfo(name = "number_of_clues") var number_of_clues: Int,

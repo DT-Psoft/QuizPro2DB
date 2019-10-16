@@ -1,6 +1,6 @@
 package com.example.quizapppro2.Class
 
-data class Question(
+data class QuestionClass(
     var question: String,
     val arrayOfAnswer: Array<String>,
     val answer: String,

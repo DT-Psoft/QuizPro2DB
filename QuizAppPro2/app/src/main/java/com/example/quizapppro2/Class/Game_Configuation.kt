@@ -4,7 +4,7 @@ class Game_Configuration() {
     var all_categories : Boolean = true
 
     var categories: Array<Boolean> = arrayOf(true,true,true,true,true,true)
-    lateinit var categoriesList: List<Category>
+    lateinit var categoriesList: List<CategoryClass>
     var categoriesNumber = 6
 
     val arrayQuestionsNumber = arrayOf(5, 6, 7, 8, 9,10)

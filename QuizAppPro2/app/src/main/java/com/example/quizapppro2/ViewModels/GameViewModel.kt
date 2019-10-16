@@ -2,8 +2,8 @@ package com.example.quizapppro2.ViewModels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.example.quizapppro2.Class.Category
-import com.example.quizapppro2.Class.Question
+import com.example.quizapppro2.Class.CategoryClass
+import com.example.quizapppro2.Class.QuestionClass
 import com.example.quizapppro2.Views.Configuration
 import com.example.quizapppro2.Views.Score
 
@@ -17,7 +17,7 @@ class GameViewModel(context: Context) : ViewModel() {
     var currentClueString: String = ""
     var currentQuestionClueUsed = false
     var currentQuestion: Int = 0
-    lateinit var gameQuestion : List<Question>
+    lateinit var gameQuestionClass : List<QuestionClass>
     lateinit var currentListOfAnswer : List<String>
 
     var score =  Score.score
@@ -27,31 +27,31 @@ class GameViewModel(context: Context) : ViewModel() {
    /* init {
         conf.categoriesList =
             listOf(
-                Category(
+                CategoryClass(
                     0,
                     context.resources.getStringArray(R.array.quest_cine),
-                    questions = arrayOf(
-                        Question(
+                    questionClasses = arrayOf(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_cine)[0],
                             context.resources.getStringArray(R.array.ans_cine1),
                             "22"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_cine)[1],
                             context.resources.getStringArray(R.array.ans_cine2),
                             "The Hateful Eight"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_cine)[2],
                             context.resources.getStringArray(R.array.ans_cine3),
                             "Jurassic Park"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_cine)[3],
                             context.resources.getStringArray(R.array.ans_cine4),
                             "Pixar"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_cine)[4],
                             context.resources.getStringArray(R.array.ans_cine5),
                             "Terminator"
@@ -59,154 +59,154 @@ class GameViewModel(context: Context) : ViewModel() {
 
                     )
                 ),
-                Category(
+                CategoryClass(
                     1, context.resources.getStringArray(R.array.quest_historia),
-                    questions = arrayOf(
-                        Question(
+                    questionClasses = arrayOf(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_historia)[0],
                             context.resources.getStringArray(R.array.ans_historia),
                             "Egipcios"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_historia)[1],
                             context.resources.getStringArray(R.array.ans_historia1),
                             "XIV"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_historia)[2],
                             context.resources.getStringArray(R.array.ans_historia3),
                             "1821"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_historia)[3],
                             context.resources.getStringArray(R.array.ans_historia4),
                             "Imperio Britanico"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_historia)[4],
                             context.resources.getStringArray(R.array.ans_historia5),
                             "1917"
                         )
 
                     )
-                ), Category(
+                ), CategoryClass(
                     2,
                     context.resources.getStringArray(R.array.quest_mate),
-                    questions = arrayOf(
-                        Question(
+                    questionClasses = arrayOf(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_mate)[0],
                             context.resources.getStringArray(R.array.ans_mate1),
                             "Martin Gardner"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_mate)[1],
                             context.resources.getStringArray(R.array.ans_mate2),
                             "2 potencia infinito"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_mate)[2],
                             context.resources.getStringArray(R.array.ans_mate3),
                             "4000 veces la poblacion de la tierra"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_mate)[3],
                             context.resources.getStringArray(R.array.ans_mate4),
                             "que todos los numeros son la suma de dos primos"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_mate)[4],
                             context.resources.getStringArray(R.array.ans_mate5),
                             "4"
                         )
                     )
                 ),
-                Category(
+                CategoryClass(
                     3,
                     context.resources.getStringArray(R.array.quest_fisica),
-                    questions = arrayOf(
-                        Question(
+                    questionClasses = arrayOf(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_fisica)[0],
                             context.resources.getStringArray(R.array.ans_fisica1),
                             "region del universo a donde se dirige todo"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_fisica)[1],
                             context.resources.getStringArray(R.array.ans_fisica2),
                             "el neutrino"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_fisica)[2],
                             context.resources.getStringArray(R.array.ans_fisica3),
                             "todas son correctas"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_fisica)[3],
                             context.resources.getStringArray(R.array.ans_fisica4),
                             "El antineutron"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_fisica)[4],
                             context.resources.getStringArray(R.array.ans_fisica5),
                             "Meterte dentro de un coche"
                         )
                     )
                 ),
-                Category(
+                CategoryClass(
                     4,
                     context.resources.getStringArray(R.array.quest_comics),
-                    questions = arrayOf(
-                        Question(
+                    questionClasses = arrayOf(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_comics)[0],
                             context.resources.getStringArray(R.array.ans_comics1),
                             "6"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_comics)[1],
                             context.resources.getStringArray(R.array.ans_comics2),
                             "Jason Todd"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_comics)[2],
                             context.resources.getStringArray(R.array.ans_comics3),
                             "Darkside"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_comics)[3],
                             context.resources.getStringArray(R.array.ans_comics4),
                             "Infinity stones"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_comics)[4],
                             context.resources.getStringArray(R.array.ans_comics5),
                             "Krypton"
                         )
                     )
                 ),
-                Category(
+                CategoryClass(
                     5,
                     context.resources.getStringArray(R.array.quest_videojuegos),
-                    questions = arrayOf(
-                        Question(
+                    questionClasses = arrayOf(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_videojuegos)[0],
                             context.resources.getStringArray(R.array.ans_videojuegos1),
                             "Final Fantasy"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_videojuegos)[1],
                             context.resources.getStringArray(R.array.ans_videojuegos2),
                             "Dark Souls"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_videojuegos)[2],
                             context.resources.getStringArray(R.array.ans_videojuegos3),
                             "Doom"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_videojuegos)[3],
                             context.resources.getStringArray(R.array.ans_videojuegos4),
                             "Ninguno"
                         ),
-                        Question(
+                        QuestionClass(
                             context.resources.getStringArray(R.array.quest_videojuegos)[4],
                             context.resources.getStringArray(R.array.ans_videojuegos5),
                             "Blue Shell"
@@ -214,14 +214,14 @@ class GameViewModel(context: Context) : ViewModel() {
                     )
                 )
             )
-        gameQuestion = getGameQuestions()
+        gameQuestionClass = getGameQuestions()
         currentListOfAnswer = getNewListOfCurrentAnswers()
     }
 */
-    private fun setQuestions(list: MutableList<Category>): MutableList<Question> {
+    private fun setQuestions(list: MutableList<CategoryClass>): MutableList<QuestionClass> {
 
-        val arrayOfQuestions: MutableList<Question> = mutableListOf()
-        var auxList: MutableList<Question>
+        val arrayOfQuestionClasses: MutableList<QuestionClass> = mutableListOf()
+        var auxList: MutableList<QuestionClass>
         var contOfIteration = 0
         var contAux = 0
 
@@ -235,27 +235,27 @@ class GameViewModel(context: Context) : ViewModel() {
             if (contAux >= list.size) {
                 contAux = 0
             }
-            auxList = list[contAux].questions.toList() as MutableList<Question>
+            auxList = list[contAux].questionClasses.toList() as MutableList<QuestionClass>
             auxList.shuffle()
             var cont = 0
-            while(arrayOfQuestions.firstOrNull{ x -> x.question == auxList[cont].question} != null){
+            while(arrayOfQuestionClasses.firstOrNull{ x -> x.question == auxList[cont].question} != null){
                 cont++
             }
-            arrayOfQuestions.add(auxList[cont])
+            arrayOfQuestionClasses.add(auxList[cont])
             contOfIteration++
             contAux++
         }
-        return arrayOfQuestions
+        return arrayOfQuestionClasses
     }
 
-    fun getGameQuestions(): MutableList<Question> {
+    fun getGameQuestions(): MutableList<QuestionClass> {
         val arrayOfQuestions: MutableList<Int> = mutableListOf()
         for ((indice, value) in conf.categories.withIndex()) {
             if (value) {
                 arrayOfQuestions.add(indice)
             }
         }
-        val finalQuest: MutableList<Category> = mutableListOf()
+        val finalQuest: MutableList<CategoryClass> = mutableListOf()
         for ((indice, value) in arrayOfQuestions.withIndex()) {
             finalQuest.add(conf.categoriesList.find { x -> x.id == value }!!)
 
@@ -269,16 +269,16 @@ class GameViewModel(context: Context) : ViewModel() {
 
     val numOfClues get() = conf.clues_number
 
-    fun getCurrentQuestion() = gameQuestion[currentQuestion].question
+    fun getCurrentQuestion() = gameQuestionClass[currentQuestion].question
 
-    fun getCurrentQuestionObject() = gameQuestion[currentQuestion]
+    fun getCurrentQuestionObject() = gameQuestionClass[currentQuestion]
 
-    fun getCorretAnswer() = gameQuestion[currentQuestion].answer
+    fun getCorretAnswer() = gameQuestionClass[currentQuestion].answer
 
     fun getCurrentQuestionNum() = currentQuestion
 
     fun getNewListOfCurrentAnswers() : List<String>{
-        var aux = gameQuestion[currentQuestion].arrayOfAnswer.toList() as MutableList<String>
+        var aux = gameQuestionClass[currentQuestion].arrayOfAnswer.toList() as MutableList<String>
         aux.shuffle()
         currentListOfAnswer =  aux
 
@@ -286,13 +286,13 @@ class GameViewModel(context: Context) : ViewModel() {
     }
 
     fun setAnsweredAt(pos: Int, string:String){
-        gameQuestion[getCurrentQuestionNum()].isCorrect = string == gameQuestion[getCurrentQuestionNum()].answer
-        gameQuestion[getCurrentQuestionNum()].answered = string
-        if(gameQuestion[getCurrentQuestionNum()].isCorrect) {
+        gameQuestionClass[getCurrentQuestionNum()].isCorrect = string == gameQuestionClass[getCurrentQuestionNum()].answer
+        gameQuestionClass[getCurrentQuestionNum()].answered = string
+        if(gameQuestionClass[getCurrentQuestionNum()].isCorrect) {
             player.numOfQuestionCorrect++
             player.score += pointsValue
         }
-        gameQuestion[pos].state = true
+        gameQuestionClass[pos].state = true
         answeredCont++
     }
 
@@ -301,13 +301,13 @@ class GameViewModel(context: Context) : ViewModel() {
     }
 
     fun nextQuestion() {
-        currentQuestion = (currentQuestion + 1) % gameQuestion.size
-        currentQuestionState = gameQuestion[currentQuestion].state
+        currentQuestion = (currentQuestion + 1) % gameQuestionClass.size
+        currentQuestionState = gameQuestionClass[currentQuestion].state
         currentQuestionClueUsed = false    }
 
     fun previousQuestion() {
-        currentQuestion = (currentQuestion + gameQuestion.size - 1) % gameQuestion.size
-        currentQuestionState = gameQuestion[currentQuestion].state
+        currentQuestion = (currentQuestion + gameQuestionClass.size - 1) % gameQuestionClass.size
+        currentQuestionState = gameQuestionClass[currentQuestion].state
         currentQuestionClueUsed = false
     }
 
