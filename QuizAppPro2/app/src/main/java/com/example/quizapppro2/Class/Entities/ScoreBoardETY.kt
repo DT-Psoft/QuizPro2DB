@@ -17,8 +17,8 @@ import androidx.room.ForeignKey
 data class ScoreBoardETY (
     @PrimaryKey @ColumnInfo(name = "id_scoreboard") var id_scoreboard: Int,
     @field:ColumnInfo(name = "num_of_question") var num_of_question: Int,
-    @field:ColumnInfo(name = "num_of_question_correct") var num_of_question_correct: Int,
-    @field:ColumnInfo(name = "cheater") var cheater: Int,
-    @field:ColumnInfo(name = "score") var score: Int,
+    @field:ColumnInfo(name = "num_of_question_correct") var num_of_question_correct: Int = 0,
+    @field:ColumnInfo(name = "cheater") var cheater: Int = 0,
+    @field:ColumnInfo(name = "score") var score: Int = 0,
     @field:ColumnInfo(name = "user_id") var user_id: Int
 )
