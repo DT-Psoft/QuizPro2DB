@@ -1,12 +1,15 @@
 package com.example.quizapppro2.Class.Entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room.*
 
-@Entity(tableName = "user_configuration")
-data class User_Configuration (
+@Entity(tableName = "user_configuration", foreignKeys = arrayOf(
+    ForeignKey(
+        entity = UserETY::class,
+        parentColumns = arrayOf("id_user"),
+        childColumns = arrayOf("user_id")
+    )
+))
+data class User_ConfigurationETY (
     @PrimaryKey @ColumnInfo(name = "id_user_config") var id_user_config: Int,
     @field:ColumnInfo(name = "number_of_questions") var number_of_questions: Int,
     @field:ColumnInfo(name = "number_of_categories") var number_of_categories: Int,

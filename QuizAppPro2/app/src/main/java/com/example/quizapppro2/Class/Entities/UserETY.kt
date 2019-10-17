@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "user")
-data class User (
+data class UserETY (
     @PrimaryKey @ColumnInfo(name = "id_user") var id_user: Int,
     @field:ColumnInfo(name = "user_name") var user_name: String,
     @field:ColumnInfo(name = "password") var number_of_categories: Int,

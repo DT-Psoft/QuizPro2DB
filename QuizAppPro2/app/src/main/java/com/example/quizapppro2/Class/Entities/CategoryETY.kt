@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "category")
-data class Category (
+data class CategoryETY (
     @PrimaryKey @ColumnInfo(name = "id_category") var id_category: Int,
     @field:ColumnInfo(name = "category_name") var category_name: String
 )

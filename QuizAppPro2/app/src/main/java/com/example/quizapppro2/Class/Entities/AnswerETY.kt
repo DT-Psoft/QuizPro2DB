@@ -7,9 +7,8 @@ import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
 
 @Entity(tableName = "answer")
-data class Answer (
+data class AnswerETY (
     @PrimaryKey @ColumnInfo(name = "id_answer") var id_answer: Int,
     @field:ColumnInfo(name = "answer_text") var answer_text: String,
-    @field:ColumnInfo(name = "question_id") var question_id: String //,
-    //@ForeignKey @ColumnInfo(name="id_question") var id_question: Int
+    @field:ColumnInfo(name = "question_id") var question_id: String
 )
