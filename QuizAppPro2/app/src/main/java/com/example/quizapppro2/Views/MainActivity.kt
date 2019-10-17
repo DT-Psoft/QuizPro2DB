@@ -4,8 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.example.quizapppro2.Class.AppDatabase
 import com.example.quizapppro2.R
 import com.example.quizapppro2.Class.Game_Configuration
+import com.facebook.stetho.Stetho
+
 
 const val EXTRA_CONFIGURATION= "com.example.quiz.EXTRA_CONFIGURATION"
 const val EXTRA_RESULT_CONFIGURATION = "com.example.quiz.EXTRA_RESULT_CONFIGURATION"
@@ -24,6 +27,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // => Inicializa librería Stetho
+        Stetho.initializeWithDefaults(this)
+
+        // => Obtener referencia a base de datos basada en librería Room
+       // val db = AppDatabase.getAppDatabase(this)
+
+
         val btnOpenActivity : Button = findViewById(R.id.btn_start_new_activity)
         btnOpenActivity.setOnClickListener{
             val intentOpciones  = Intent(this, Opciones2:: class.java)
