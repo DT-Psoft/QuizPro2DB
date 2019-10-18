@@ -20,28 +20,26 @@ import com.example.quizapppro2.Class.Entities.*
 
 abstract class AppDatabase : RoomDatabase(){
 
-    companion object {
-        private var INSTANCE: AppDatabase? = null
+    private var INSTANCE: AppDatabase? = null
 
-        fun getAppDatabase(context: Context): AppDatabase {
-            if (INSTANCE == null) {
-                INSTANCE = Room.databaseBuilder(
-                    context.getApplicationContext(),
-                    AppDatabase::class.java,
-                    "quizzapp.db"
-                )
-                    .allowMainThreadQueries()
-                    .addCallback(object : RoomDatabase.Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
-                            initializeData(db)
-                        }
-                    })
-                    .build()
-            }
-
-            return INSTANCE as AppDatabase
+    fun getAppDatabase(context: Context): AppDatabase {
+        if (INSTANCE == null) {
+            INSTANCE = Room.databaseBuilder(
+                context.getApplicationContext(),
+                AppDatabase::class.java,
+                "quizzapp.db"
+            )
+                .allowMainThreadQueries()
+                .addCallback(object : RoomDatabase.Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        initializeData(db)
+                    }
+                })
+                .build()
         }
+
+        return INSTANCE as AppDatabase
     }
 
     fun initializeData(db: SupportSQLiteDatabase) {
