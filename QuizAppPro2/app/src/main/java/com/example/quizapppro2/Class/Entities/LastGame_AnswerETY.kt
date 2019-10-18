@@ -19,7 +19,7 @@ import androidx.room.ForeignKey
         )],
 
     indices = [
-        Index(value = ["question_id", "id_lastgame_question"], unique = true)
+        Index(value = ["question_id"], unique = true)
     ]
 )
 
