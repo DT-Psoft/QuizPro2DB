@@ -10,7 +10,7 @@ import androidx.room.ForeignKey
     ForeignKey(
         entity = QuestionETY::class,
         parentColumns = arrayOf("question_id"),
-        childColumns = arrayOf("id_question")
+        childColumns = arrayOf("id_question"), onDelete = ForeignKey.CASCADE
     )
 ))
 data class LastGame_QuestionETY (

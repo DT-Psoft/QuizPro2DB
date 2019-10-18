@@ -5,12 +5,13 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 
 @Entity(tableName = "answer", foreignKeys = arrayOf(
     ForeignKey(
         entity = UserETY::class,
         parentColumns = arrayOf("id_user"),
-        childColumns = arrayOf("id_usuario")
+        childColumns = arrayOf("id_usuario"), onDelete = ForeignKey.CASCADE
     )
 ))
 

@@ -10,17 +10,17 @@ import androidx.room.ForeignKey
     ForeignKey(
         entity = UserETY::class,
         parentColumns = arrayOf("question_id"),
-        childColumns = arrayOf("id_lastgame_question")
+        childColumns = arrayOf("id_lastgame_question"), onDelete = ForeignKey.CASCADE
     ),
     ForeignKey(
         entity = UserETY::class,
         parentColumns = arrayOf("answer_id"),
-        childColumns = arrayOf("id_answer")
+        childColumns = arrayOf("id_answer"), onDelete = ForeignKey.CASCADE
     )
 ))
 
 class LastGame_AnswerETY (
-    @PrimaryKey @ColumnInfo(name = "id_lastgame_answer") var id_lastgame_question: Int,
+    @PrimaryKey @ColumnInfo(name = "id_lastgame_answer") var id_lastgame_answer: Int,
     @field:ColumnInfo(name = "question_id") var question_id: Int,
     @field:ColumnInfo(name = "answered_id") var answered_id: Int,
     @field:ColumnInfo(name = "answer_by_user") var answer_by_user: Int = 0

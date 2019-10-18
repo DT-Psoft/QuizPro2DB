@@ -6,7 +6,7 @@ import androidx.room.*
     ForeignKey(
         entity = UserETY::class,
         parentColumns = arrayOf("id_user"),
-        childColumns = arrayOf("user_id")
+        childColumns = arrayOf("user_id"), onDelete = ForeignKey.CASCADE
     )
 ))
 data class User_ConfigurationETY (
