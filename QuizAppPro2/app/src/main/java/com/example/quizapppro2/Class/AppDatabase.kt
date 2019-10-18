@@ -5,6 +5,8 @@ import androidx.room.Database
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.quizapppro2.Class.DAO.UserDAO
+import com.example.quizapppro2.Class.DAO.User_ConfigurationDAO
 import com.example.quizapppro2.Class.Entities.*
 
 @Database(
@@ -20,8 +22,13 @@ import com.example.quizapppro2.Class.Entities.*
 
 abstract class AppDatabase : RoomDatabase(){
 
+    abstract fun User_ConfigurationDAO(): User_ConfigurationDAO
+    abstract fun UserDAO(): UserDAO
+
     companion object {
         private var INSTANCE: AppDatabase? = null
+
+        private lateinit var CurrentUser : UserETY
 
         fun getAppDatabase(context: Context): AppDatabase {
             if (INSTANCE == null) {
