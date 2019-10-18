@@ -9,6 +9,8 @@ import com.example.quizapppro2.R
 import com.example.quizapppro2.Class.Game_Configuration
 import com.facebook.stetho.Stetho
 
+import com.example.quizapppro2.Class.Entities.CategoryETY
+
 
 const val EXTRA_CONFIGURATION= "com.example.quiz.EXTRA_CONFIGURATION"
 const val EXTRA_RESULT_CONFIGURATION = "com.example.quiz.EXTRA_RESULT_CONFIGURATION"
@@ -32,13 +34,14 @@ class MainActivity : AppCompatActivity() {
         Stetho.initializeWithDefaults(this)
 
         // => Obtener referencia a base de datos basada en librería Room
-       // val db = AppDatabase.getAppDatabase(this)
+        val db = AppDatabase.getAppDatabase(this)
+       // val categorias = db.getCategoryDao().getAll()
 
 
         val btnOpenActivity : Button = findViewById(R.id.btn_start_new_activity)
         btnOpenActivity.setOnClickListener{
-            val intentOpciones  = Intent(this, Opciones2:: class.java)
-            startActivityForResult(intentOpciones,OPTIONSACTIVITY_REQUEST_CODE)
+//            val intentOpciones  = Intent(this, Opciones2:: class.java)
+//            startActivityForResult(intentOpciones,OPTIONSACTIVITY_REQUEST_CODE)
         }
 
         val btnOpenActivityJuego : Button = findViewById(R.id.btn_start_game_activity)

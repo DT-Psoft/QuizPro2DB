@@ -44,11 +44,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // => Dependencias agregadas para librería Room
-    def room_version = "2.2.0"
+    def room_version = "2.2.0-rc01"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     // => Dependencias agregadas para Stetho
     implementation 'com.facebook.stetho:stetho:1.5.1'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 }

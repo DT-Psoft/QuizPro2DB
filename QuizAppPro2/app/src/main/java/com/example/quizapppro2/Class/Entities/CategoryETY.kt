@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "category")
 data class CategoryETY (
-    @PrimaryKey @ColumnInfo(name = "id_category") var id_category: Int,
+    @PrimaryKey @ColumnInfo(name = "id_category", index = true) var id_category: Int,
     @field:ColumnInfo(name = "category_name") var category_name: String
 )

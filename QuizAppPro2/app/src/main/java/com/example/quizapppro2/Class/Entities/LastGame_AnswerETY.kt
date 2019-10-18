@@ -6,18 +6,22 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
 
-@Entity(tableName = "lastgame_answer", foreignKeys = arrayOf(
-    ForeignKey(
-        entity = UserETY::class,
+@Entity(tableName = "lastgame_answer", foreignKeys =
+    [ForeignKey(
+        entity = LastGame_QuestionETY::class,
         parentColumns = arrayOf("question_id"),
         childColumns = arrayOf("id_lastgame_question"), onDelete = ForeignKey.CASCADE
     ),
-    ForeignKey(
-        entity = UserETY::class,
-        parentColumns = arrayOf("answer_id"),
-        childColumns = arrayOf("id_answer"), onDelete = ForeignKey.CASCADE
-    )
-))
+        ForeignKey(
+            entity = AnswerETY::class,
+            parentColumns = arrayOf("answer_id"),
+            childColumns = arrayOf("id_answer"), onDelete = ForeignKey.CASCADE
+        )],
+
+    indices = [
+        Index(value = ["question_id", "id_lastgame_question"], unique = true)
+    ]
+)
 
 class LastGame_AnswerETY (
     @PrimaryKey @ColumnInfo(name = "id_lastgame_answer") var id_lastgame_answer: Int,

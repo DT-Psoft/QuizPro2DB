@@ -6,13 +6,16 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
 
-@Entity(tableName = "scoreboard", foreignKeys = arrayOf(
-    ForeignKey(
+@Entity(tableName = "scoreboard", foreignKeys =
+[ForeignKey(
         entity = UserETY::class,
         parentColumns = arrayOf("id_user"),
-        childColumns = arrayOf("id_usuario"), onDelete = ForeignKey.CASCADE
-    )
-))
+        childColumns = arrayOf("user_id"), onDelete = ForeignKey.CASCADE
+    )],
+    indices = [
+        Index(value = ["user_id"], unique = true)
+    ]
+)
 
 data class ScoreBoardETY (
     @PrimaryKey @ColumnInfo(name = "id_scoreboard") var id_scoreboard: Int,
