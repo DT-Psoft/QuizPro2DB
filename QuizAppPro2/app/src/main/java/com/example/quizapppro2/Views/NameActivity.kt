@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_name.*
 class NameActivity : AppCompatActivity() {
 
     private lateinit var nameEditText: EditText
-    private lateinit var acceptButton : Button
+    private lateinit var acceptButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_name)
@@ -21,8 +21,8 @@ class NameActivity : AppCompatActivity() {
         acceptButton = findViewById(R.id.aceptar_button)
 
         setResult(Activity.RESULT_CANCELED)
-        acceptButton.setOnClickListener{
-            val intent: Intent = Intent()
+        acceptButton.setOnClickListener {
+            val intent = Intent()
             intent.putExtra(EXTRA_RESULT_TEXT, nameEditText.text.toString())
             setResult(Activity.RESULT_OK, intent)
             finish()

@@ -15,12 +15,9 @@ import com.example.quizapppro2.Class.GameResults
 import com.example.quizapppro2.ViewModels.GameViewModel
 import com.example.quizapppro2.R
 
-object Score{
-    var score = GameResults()
-}
 
 class QuizGameActivity : AppCompatActivity() {
-
+/*
     protected inline fun <VM : ViewModel> viewModelFactory(crossinline f: () -> VM) =
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(aClass: Class<T>): T = f() as T
@@ -130,6 +127,7 @@ class QuizGameActivity : AppCompatActivity() {
         questionContTextView = findViewById(R.id.quesCont_text)
         questionNumTextView = findViewById(R.id.quesNum_text)
         cluesNumTextView = findViewById(R.id.pistas_counter)
+
         cluesNumTextView.isEnabled =( model.conf.cluesOn && (model.currentClue < model.conf.clues_number) ) || model.currentQuestionClueUsed
         cluesNumTextView.text = if(model.conf.cluesOn) "Pistas: ${model.currentClue}/${model.numOfClues}" else "Pistas: 0/0"
         updateQuestion()
@@ -184,6 +182,7 @@ class QuizGameActivity : AppCompatActivity() {
 
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -233,7 +232,10 @@ class QuizGameActivity : AppCompatActivity() {
             1-> (0..2).random()
             2 -> (0..1).random()
             else -> -1
-    }
+    }*/
 
+}
 
+object Score {
+    var score = GameResults()
 }

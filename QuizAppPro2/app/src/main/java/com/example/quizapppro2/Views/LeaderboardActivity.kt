@@ -29,8 +29,8 @@ class LeaderboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_leaderboard)
-        val valores = Score.score.scoreboardName.toMutableList()
-        val valoresPlayer = Score.score.scoreboardPlayer.toMutableList()
+        //val valores = Score.score.scoreboardName.toMutableList()
+        //val valoresPlayer = Score.score.scoreboardPlayer.toMutableList()
         tx1 = findViewById(R.id.player1_textview)
         tx2 = findViewById(R.id.player2_textview)
         tx3 = findViewById(R.id.player3_textview)
@@ -43,7 +43,7 @@ class LeaderboardActivity : AppCompatActivity() {
         img4 = findViewById(R.id.imageView4)
         img5 = findViewById(R.id.imageView5)
         img6 = findViewById(R.id.imageView6)
-        var imgs = mutableListOf(img1, img2, img3, img4, img5, img6)
+        /*var imgs = mutableListOf(img1, img2, img3, img4, img5, img6)
         var tx = mutableListOf(tx1, tx2, tx3, tx4, tx5, tx6)
         var pos = 0
 
@@ -76,6 +76,6 @@ class LeaderboardActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         val intent = Intent()
-        setResult(RESULT_OK, intent)
+        setResult(RESULT_OK, intent)*/
     }
 }
