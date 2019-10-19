@@ -9,12 +9,9 @@ import androidx.room.ForeignKey
 @Entity(tableName = "lastgame",foreignKeys =
     [ForeignKey(
         entity = UserETY::class,
-        parentColumns = arrayOf("user_id"),
-        childColumns = arrayOf("id_user"), onDelete = ForeignKey.CASCADE
-            )],
-    indices = [
-        Index(value = ["id_user"], unique = true)
-    ]
+        parentColumns = ["id_user"],
+        childColumns = ["user_id"], onDelete = ForeignKey.CASCADE
+            )]
 )
 
 data class LastGameETY (
@@ -25,5 +22,5 @@ data class LastGameETY (
     @field:ColumnInfo(name = "clues_on") var clues_on: Int,
     @field:ColumnInfo(name = "number_of_clues") var number_of_clues: Int,
     @field:ColumnInfo(name = "clues_left") var clues_left: Int,
-    @field:ColumnInfo(name = "id_user") var id_user: Int
+    @field:ColumnInfo(name = "user_id", index=true) var user_id: Int
 )

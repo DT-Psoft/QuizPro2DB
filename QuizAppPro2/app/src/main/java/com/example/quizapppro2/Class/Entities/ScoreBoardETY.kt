@@ -9,12 +9,9 @@ import androidx.room.ForeignKey
 @Entity(tableName = "scoreboard", foreignKeys =
 [ForeignKey(
         entity = UserETY::class,
-        parentColumns = arrayOf("id_user"),
-        childColumns = arrayOf("user_id"), onDelete = ForeignKey.CASCADE
-    )],
-    indices = [
-        Index(value = ["user_id"], unique = true)
-    ]
+        parentColumns = ["id_user"],
+        childColumns = ["user_id"], onDelete = ForeignKey.CASCADE
+    )]
 )
 
 data class ScoreBoardETY (
@@ -23,5 +20,5 @@ data class ScoreBoardETY (
     @field:ColumnInfo(name = "num_of_question_correct") var num_of_question_correct: Int = 0,
     @field:ColumnInfo(name = "cheater") var cheater: Int = 0,
     @field:ColumnInfo(name = "score") var score: Int = 0,
-    @field:ColumnInfo(name = "user_id") var user_id: Int
+    @field:ColumnInfo(name = "user_id", index = true) var user_id: Int
 )
