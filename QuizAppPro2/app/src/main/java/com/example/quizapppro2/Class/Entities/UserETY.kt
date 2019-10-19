@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "user")
 data class UserETY (
     @field:ColumnInfo(name = "user_name") var user_name: String,
-    //@field:ColumnInfo(name = "password") var number_of_categories: Int,
+    @field:ColumnInfo(name = "password") var number_of_categories: Int,
     @field:ColumnInfo(name = "is_logged") var all_categories: Int = 0,
     @field:ColumnInfo(name = "image_user") var image_user: Int
 ){

@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         // => Obtener referencia a base de datos basada en librería Room
         val db = AppDatabase.getAppDatabase(this)
-       // val categorias = db.getCategoryDao().getAll()
+        val categorias = db.getCategoriesDAO().getAll()
 
 
         val btnOpenActivity : Button = findViewById(R.id.btn_start_new_activity)

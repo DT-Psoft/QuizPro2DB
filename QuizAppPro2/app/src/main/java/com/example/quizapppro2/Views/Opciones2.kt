@@ -58,9 +58,9 @@ class Opciones2 : AppCompatActivity() {
         questionSpinner = findViewById(R.id.numbers_quest_spinner)
         cheatsSpinner = findViewById(R.id.numbers_cheat_no_spinner)
 
-//      Categorias CheckBox logica
+   //   Categorias CheckBox logica
 
-       /* todosCheckBox.isChecked = Configuration.conf.all_categories
+        todosCheckBox.isChecked = Configuration.conf.all_categories
         cineCheckBox.isChecked = Configuration.conf.categories[0]
         historiaCheckBox.isChecked = Configuration.conf.categories[1]
         matematicasCheckBox.isChecked = Configuration.conf.categories[2]
@@ -205,6 +205,6 @@ class Opciones2 : AppCompatActivity() {
             this,
             string,
             Toast.LENGTH_SHORT
-        ).show()*/
+        ).show()
     }
 }

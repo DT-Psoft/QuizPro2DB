@@ -2,6 +2,7 @@ package com.example.quizapppro2.ViewModels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.example.quizapppro2.R
 import com.example.quizapppro2.Class.CategoryClass
 import com.example.quizapppro2.Class.QuestionClass
 import com.example.quizapppro2.Views.Configuration
@@ -24,7 +25,7 @@ class GameViewModel(context: Context) : ViewModel() {
     var player =  Score.score.currentPlayer
     var pointsValue =  conf.getPointsValue()
 
-   /* init {
+    init {
         conf.categoriesList =
             listOf(
                 CategoryClass(
@@ -217,7 +218,7 @@ class GameViewModel(context: Context) : ViewModel() {
         gameQuestionClass = getGameQuestions()
         currentListOfAnswer = getNewListOfCurrentAnswers()
     }
-*/
+
     private fun setQuestions(list: MutableList<CategoryClass>): MutableList<QuestionClass> {
 
         val arrayOfQuestionClasses: MutableList<QuestionClass> = mutableListOf()
@@ -289,7 +290,7 @@ class GameViewModel(context: Context) : ViewModel() {
         gameQuestionClass[getCurrentQuestionNum()].isCorrect = string == gameQuestionClass[getCurrentQuestionNum()].answer
         gameQuestionClass[getCurrentQuestionNum()].answered = string
         if(gameQuestionClass[getCurrentQuestionNum()].isCorrect) {
-            player.numOfQuestionCorrect++
+          //  player.numOfQuestionCorrect++
             player.score += pointsValue
         }
         gameQuestionClass[pos].state = true
