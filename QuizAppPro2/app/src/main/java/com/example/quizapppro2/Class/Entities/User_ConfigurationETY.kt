@@ -6,9 +6,10 @@ import androidx.room.*
         entity = UserETY::class,
         parentColumns = ["id_user"],
         childColumns = ["user_id"], onDelete = ForeignKey.CASCADE
-    )]
+    )],
+        indices = [Index(value = ["user_id"], unique = true)]
 )
-data class User_ConfigurationETY(@ColumnInfo(name="user_id", index = true) var user_id: Int) {
+data class User_ConfigurationETY(@ColumnInfo(name="user_id") var user_id: Int) {
 
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id_user_config", index = true) var id_user_config: Int = 0
     @field:ColumnInfo(name = "number_of_questions") var number_of_questions: Int = 5

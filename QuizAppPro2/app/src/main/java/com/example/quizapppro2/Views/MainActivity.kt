@@ -10,6 +10,8 @@ import com.example.quizapppro2.Class.Game_Configuration
 import com.facebook.stetho.Stetho
 
 import com.example.quizapppro2.Class.Entities.CategoryETY
+import com.example.quizapppro2.Class.Entities.UserETY
+import com.example.quizapppro2.Class.Entities.User_ConfigurationETY
 
 
 const val EXTRA_CONFIGURATION= "com.example.quiz.EXTRA_CONFIGURATION"
@@ -38,10 +40,29 @@ class MainActivity : AppCompatActivity() {
         val categorias = db.getCategoriesDAO().getAll()
 
 
+
+        //----- ESTO SOLO SE HACE UNA VEZ, SI YA LO HICISTE COMENTALO Y DESCOMENTA LO DE ABAJO -------
+
+        //Kike : meto un usuario
+        db.UserDAO().AddUser(UserETY("kike", 1234, 1,1))
+        //inserto una nueva configuracion (Recuerda que si quieres crear una configuration necesitas pasarle el id del usuario)
+        db.User_ConfigurationDAO().AddConfiguration(
+            User_ConfigurationETY(
+                db.UserDAO().getUserByIsLogged().id_user))
+
+
+        // ----- SI YA HICISTE LO DE ARRIBA SOLO HAZ ESTO Y COMENTA LO DE ARRIBA -------
+
+//        AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLogged())
+//        AppDatabase.setCurrentConfiguration(
+//            db.User_ConfigurationDAO().getConfigurationByUserId(
+//                AppDatabase.getCurrentUser().id_user))
+
+
         val btnOpenActivity : Button = findViewById(R.id.btn_start_new_activity)
         btnOpenActivity.setOnClickListener{
-//            val intentOpciones  = Intent(this, Opciones2:: class.java)
-//            startActivityForResult(intentOpciones,OPTIONSACTIVITY_REQUEST_CODE)
+            val intentOpciones  = Intent(this, Opciones2:: class.java)
+            startActivityForResult(intentOpciones,OPTIONSACTIVITY_REQUEST_CODE)
         }
 
         val btnOpenActivityJuego : Button = findViewById(R.id.btn_start_game_activity)

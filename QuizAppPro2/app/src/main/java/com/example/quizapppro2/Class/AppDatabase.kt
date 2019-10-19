@@ -30,7 +30,17 @@ abstract class AppDatabase : RoomDatabase(){
     companion object {
         private var INSTANCE: AppDatabase? = null
 
-        private lateinit var CurrentUser : UserETY
+        private lateinit var currentUser : UserETY
+        private lateinit var currentConfiguration: User_ConfigurationETY
+
+        fun getCurrentConfiguration() = currentConfiguration
+        fun setCurrentConfiguration(configuration: User_ConfigurationETY){
+            currentConfiguration = configuration
+        }
+        fun getCurrentUser() = currentUser
+        fun setCurrentUser(user: UserETY){
+            currentUser = user
+        }
 
         fun getAppDatabase(context: Context): AppDatabase {
             if (INSTANCE == null) {

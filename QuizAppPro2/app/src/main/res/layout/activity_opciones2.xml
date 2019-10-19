@@ -210,6 +210,13 @@
                 android:layout_marginRight="45dp" />
 
         </LinearLayout>
-    </LinearLayout>
 
+    </LinearLayout>
+    <Button
+        android:id="@+id/guardar_button"
+        android:text="Guardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </Button>
 </LinearLayout>
