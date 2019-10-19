@@ -22,10 +22,10 @@
 
         <activity android:name=".Views.QuizGameActivity" />
 
-<!--        <activity-->
-<!--&lt;!&ndash;            android:name=".Views.Opciones2"&ndash;&gt;-->
-<!--            android:label="Configuraciones"-->
-<!--            android:theme="@style/AppTheme" />-->
+        <activity
+            android:name=".Views.Opciones2"
+            android:label="Configuraciones"
+            android:theme="@style/AppTheme" />
 
 
         <activity android:name=".Views.SingUpActivity"/>
