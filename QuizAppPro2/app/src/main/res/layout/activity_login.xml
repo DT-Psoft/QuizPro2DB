@@ -27,12 +27,13 @@
             android:src="@drawable/ic_game_icon" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinp_user_name"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#00EBEBEB">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textinp_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"

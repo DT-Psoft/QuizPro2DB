@@ -39,5 +39,9 @@ interface UserDAO: User_ConfigurationDAO {
     @Query("SELECT*FROM user where is_logged = 1")
     fun getUserByIsLogged(): UserETY
 
+    @Query("SELECT*FROM user")
+    fun getAllUsers(): Array<UserETY>
+
+
 
 }
