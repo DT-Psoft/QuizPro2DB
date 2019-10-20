@@ -52,32 +52,28 @@ class LoginActivity : AppCompatActivity() {
 
         AppDatabase.getLoginUser()
 
-        val username2 : Array<UserETY> = db.UserDAO().getAllUsers()
+        val username2 : UserETY = db.UserDAO().getUserByName(editTextUserName.text.toString())
 
         val btnOpenMenu : Button = findViewById(R.id.btn_login)
         btnOpenMenu.setOnClickListener{
-            for(i in username2.indices) {
-                val login = username2[i]
+           // for(i in username2.indices) {
+         //       val login = username2[i]
+            val login = username2
                 if (login.user_name == editTextUserName.text.toString()) {
                     val intentMain = Intent(this, MainActivity::class.java)
                     startActivityForResult(intentMain, OPTIONSACTIVITY_REQUEST_CODE)
 
-                    Toast.makeText(
-                        this,
-                        "Inicio Exitoso",
-                        Toast.LENGTH_SHORT
-                    ).show()
 
-                    break
+        //            break
                 }
                 if (login.user_name != editTextUserName.text.toString()) {
                     Toast.makeText(
                         this,
-                        "Usuario incorrecto, intente denuevo o registre un usuario",
+                        "Usuario no existe",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            }
+           // }
 
         }
 

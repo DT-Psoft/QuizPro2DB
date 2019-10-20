@@ -54,7 +54,7 @@ class SingUpActivity : AppCompatActivity() {
             val intentRegistrar = Intent(this, LoginActivity::class.java)
             startActivityForResult(intentRegistrar, OPTIONSACTIVITY_REQUEST_CODE)
 
-             editTextNewUserName = db.UserDAO().InsertUserWithConfig(UserETY(user_name = editTextConfirmUserName.text.toString(), is_logged = 0, image_user = 1))
+           //  editTextNewUserName = db.UserDAO().InsertUserWithConfig(UserETY(user_name = editTextConfirmUserName.text.toString(), is_logged = 0, image_user = 1))
 
         }
             }

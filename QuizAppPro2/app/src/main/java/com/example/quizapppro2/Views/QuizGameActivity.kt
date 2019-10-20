@@ -10,12 +10,33 @@ import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.quizapppro2.Class.AppDatabase
 import com.example.quizapppro2.Class.GameResults
 import com.example.quizapppro2.ViewModels.GameViewModel
 import com.example.quizapppro2.R
 
 
 class QuizGameActivity : AppCompatActivity() {
+
+    val db = AppDatabase.getAppDatabase(this)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
     protected inline fun <VM : ViewModel> viewModelFactory(crossinline f: () -> VM) =
         object : ViewModelProvider.Factory {
