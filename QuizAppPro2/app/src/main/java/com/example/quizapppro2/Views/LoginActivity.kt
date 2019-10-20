@@ -38,10 +38,10 @@ class LoginActivity : AppCompatActivity() {
         //----- ESTO SOLO SE HACE UNA VEZ, SI YA LO HICISTE COMENTALO Y DESCOMENTA LO DE ABAJO -------
 
         //Kike : meto un usuario
-       db.UserDAO().InsertUserWithConfig(UserETY("fede", 1234, 1,1))
-        db.UserDAO().InsertUserWithConfig(UserETY("kike", 1234, 1,1))
-        db.UserDAO().InsertUserWithConfig(UserETY("cristian", 1234, 1,1))
-        db.UserDAO().InsertUserWithConfig(UserETY("kenobi", 1234, 1,1))
+       db.UserDAO().InsertUserWithConfig(UserETY("fede", 1234, 1))
+        db.UserDAO().InsertUserWithConfig(UserETY("kike", 1234, 1))
+        db.UserDAO().InsertUserWithConfig(UserETY("cristian", 1234, 1))
+        db.UserDAO().InsertUserWithConfig(UserETY("kenobi", 1234, 1))
         //inserto una nueva configuracion (Recuerda que si quieres crear una configuration necesitas pasarle el id del usuario)
 //        db.User_ConfigurationDAO().AddConfiguration(
 //            User_ConfigurationETY(
