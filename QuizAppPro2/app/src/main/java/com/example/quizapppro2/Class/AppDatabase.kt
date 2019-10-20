@@ -18,7 +18,7 @@ import com.example.quizapppro2.Class.Entities.*
         User_ConfigurationETY::class, UserETY::class,
         ScoreBoardETY::class
 
-    ], version = 1
+    ], version = 2
 )
 
 abstract class AppDatabase : RoomDatabase(){

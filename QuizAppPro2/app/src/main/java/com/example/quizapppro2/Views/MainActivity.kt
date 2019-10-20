@@ -52,10 +52,10 @@ class MainActivity : AppCompatActivity() {
 
         // ----- SI YA HICISTE LO DE ARRIBA SOLO HAZ ESTO Y COMENTA LO DE ARRIBA -------
 
-//        AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLogged())
-//        AppDatabase.setCurrentConfiguration(
-//            db.User_ConfigurationDAO().getConfigurationByUserId(
-//                AppDatabase.getCurrentUser().id_user))
+        AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLogged())
+        AppDatabase.setCurrentConfiguration(
+            db.User_ConfigurationDAO().getConfigurationByUserId(
+                AppDatabase.getCurrentUser().id_user))
 
 
         val btnOpenActivity : Button = findViewById(R.id.btn_start_new_activity)

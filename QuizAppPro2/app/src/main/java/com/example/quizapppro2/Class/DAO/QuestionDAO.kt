@@ -7,6 +7,9 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.quizapppro2.Class.Entities.QuestionETY
 
+
 @Dao
 interface QuestionDAO {
+    @Query("SELECT * FROM question WHERE id_question = :id")
+    fun getConfigurationByUserId(id: Int) : QuestionETY
 }

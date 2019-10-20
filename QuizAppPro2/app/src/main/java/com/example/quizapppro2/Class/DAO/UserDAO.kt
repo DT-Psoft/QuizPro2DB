@@ -17,7 +17,7 @@ interface UserDAO: User_ConfigurationDAO {
             return false
         }
         else{
-            AddConfiguration(User_ConfigurationETY(id as Int))
+            AddConfiguration(User_ConfigurationETY(id.toInt()))
         }
         return true
     }
