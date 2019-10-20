@@ -1,15 +1,32 @@
 package com.example.quizapppro2.Class.DAO
 
 import androidx.room.*
+import com.example.quizapppro2.Class.AppDatabase
 import com.example.quizapppro2.Class.Entities.UserETY
+import com.example.quizapppro2.Class.DAO.User_ConfigurationDAO
+import com.example.quizapppro2.Class.Entities.User_ConfigurationETY
+import com.example.quizapppro2.Views.Configuration
 
 @Dao
-interface UserDAO {
+interface UserDAO: User_ConfigurationDAO {
 
+    @Transaction
+    fun InsertUserWithConfig(user:UserETY): Boolean{
+        var id = AddUser(user)
+        if(id == -1L) {
+            return false
+        }
+        else{
+            AddConfiguration(User_ConfigurationETY(id as Int))
+        }
+        return true
+    }
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun AddUser(user : UserETY)
+    fun AddUser(user : UserETY): Long
+
     @Delete
     fun deleteUser(vararg User: UserETY)
+
     @Query("DELETE FROM user where id_user = :id")
     fun deleteUserById(id:Int)
 

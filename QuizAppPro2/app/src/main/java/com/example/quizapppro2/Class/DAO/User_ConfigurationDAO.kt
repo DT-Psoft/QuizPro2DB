@@ -12,8 +12,10 @@ interface User_ConfigurationDAO{
 
     @Delete
     fun deleteConfiguration(vararg config: User_ConfigurationETY)
+
     @Query("DELETE FROM user_configuration where id_user_config= :id")
     fun deleteConfigurationById(id:Int)
+
     @Update
     fun updateConfiguration(vararg config : User_ConfigurationETY)
 

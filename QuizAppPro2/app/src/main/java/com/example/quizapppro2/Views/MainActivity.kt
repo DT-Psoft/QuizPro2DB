@@ -44,12 +44,11 @@ class MainActivity : AppCompatActivity() {
         //----- ESTO SOLO SE HACE UNA VEZ, SI YA LO HICISTE COMENTALO Y DESCOMENTA LO DE ABAJO -------
 
         //Kike : meto un usuario
-        db.UserDAO().AddUser(UserETY("kike", 1234, 1,1))
+        db.UserDAO().InsertUserWithConfig(UserETY("kike", 1234, 1,1))
         //inserto una nueva configuracion (Recuerda que si quieres crear una configuration necesitas pasarle el id del usuario)
-        db.User_ConfigurationDAO().AddConfiguration(
-            User_ConfigurationETY(
-                db.UserDAO().getUserByIsLogged().id_user))
-
+//        db.User_ConfigurationDAO().AddConfiguration(
+//            User_ConfigurationETY(
+//                db.UserDAO().getUserByIsLogged().id_user))
 
         // ----- SI YA HICISTE LO DE ARRIBA SOLO HAZ ESTO Y COMENTA LO DE ARRIBA -------
 
