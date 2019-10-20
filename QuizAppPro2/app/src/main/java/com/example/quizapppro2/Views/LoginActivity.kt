@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.quizapppro2.Class.AppDatabase
@@ -12,9 +11,6 @@ import com.example.quizapppro2.Class.Entities.UserETY
 import com.example.quizapppro2.R
 import com.facebook.stetho.Stetho
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_sing_up.*
 
 
 class LoginActivity : AppCompatActivity() {

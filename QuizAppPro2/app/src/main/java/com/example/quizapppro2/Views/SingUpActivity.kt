@@ -1,10 +1,13 @@
 package com.example.quizapppro2.Views
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
+import com.example.quizapppro2.Class.AppDatabase
+import com.example.quizapppro2.Class.Entities.UserETY
 import com.example.quizapppro2.R
 import com.google.android.material.textfield.TextInputEditText
 
@@ -34,9 +37,27 @@ class SingUpActivity : AppCompatActivity() {
         imageView_ic4.setOnClickListener { changeSelectedIcon(imageView_ic4) }
         imageView_ic5.setOnClickListener { changeSelectedIcon(imageView_ic5) }
         imageView_ic6.setOnClickListener { changeSelectedIcon(imageView_ic6) }
-        val editTextNewUserName = findViewById<TextInputEditText>(R.id.txtinp_newUser)
-        val editTextConfirmUserName = findViewById<TextInputEditText>(R.id.txtinp_confUser)
 
+
+        var editTextNewUserName: TextInputEditText = findViewById<TextInputEditText>(R.id.txtinp_newUser)
+        var editTextConfirmUserName : TextInputEditText= findViewById<TextInputEditText>(R.id.txtinp_confUser)
+
+        val db = AppDatabase.getAppDatabase(this)
+      //  val imageUser = findViewById<ImageView>(R.id.)
+
+        val btnRegistrar : Button = findViewById(R.id.btn_Signup)
+
+        if(editTextNewUserName == editTextConfirmUserName)
+        {
+
+        btnRegistrar.setOnClickListener{
+            val intentRegistrar = Intent(this, LoginActivity::class.java)
+            startActivityForResult(intentRegistrar, OPTIONSACTIVITY_REQUEST_CODE)
+
+             editTextNewUserName = db.UserDAO().InsertUserWithConfig(UserETY(user_name = editTextConfirmUserName.text.toString(), is_logged = 0, image_user = 1))
+
+        }
+            }
     }
 
     @SuppressLint("NewApi")
