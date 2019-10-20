@@ -20,6 +20,14 @@ class SingUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sing_up)
+        imageView_ic1 = findViewById(R.id.imageView1)
+        imageView_ic2 = findViewById(R.id.imageView2)
+        imageView_ic3 = findViewById(R.id.imageView3)
+        imageView_ic4 = findViewById(R.id.imageView4)
+        imageView_ic5 = findViewById(R.id.imageView5)
+        imageView_ic6 = findViewById(R.id.imageView6)
+        currentImageView = imageView_ic1
+        changeSelectedIcon(currentImageView)
         imageView_ic1.setOnClickListener { changeSelectedIcon(imageView_ic1) }
         imageView_ic2.setOnClickListener { changeSelectedIcon(imageView_ic2) }
         imageView_ic3.setOnClickListener { changeSelectedIcon(imageView_ic3) }
@@ -32,11 +40,18 @@ class SingUpActivity : AppCompatActivity() {
     }
 
     @SuppressLint("NewApi")
-    private fun changeSelectedIcon(selectedImageView: ImageView = imageView_ic1) {
+    private fun changeSelectedIcon(selectedImageView: ImageView) {
+        if (currentImageView == selectedImageView) {
+            currentImageView.foreground.alpha = 0
+            return
+        }
         //IMAGEVIEW PREVIO-SELECCIONADO CON OSCURIDAD (OPACACIDAD :)
-        currentImageView.foreground.alpha=40
+        currentImageView.foreground.alpha = 255
+
         //IMAGEVIEW SET NUEVO ICONO
-        currentImageView=selectedImageView
-        currentImageView.foreground.alpha=0
+
+        currentImageView = selectedImageView
+        //IMAGEVIEW NUEVO ICONO (IMAGEVIEW) SIN OSCURIDAD
+        currentImageView.foreground.alpha = 0
     }
 }
