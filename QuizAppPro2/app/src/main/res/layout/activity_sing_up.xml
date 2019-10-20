@@ -22,7 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="1. - Selecciona tu avatar" />
+            android:textColor="@color/colorPrimaryDark"
+            android:text="1. - Selecciona tu icono de Avatar" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,30 +34,38 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="150px"
-                android:layout_height="250px"
+                android:layout_width="55dp"
+                android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:background="@color/color_icon1"
+                android:foreground="@drawable/ic_launcher_background"
+                android:foregroundTint="#5B020202"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_bullbasaur" />
 
             <ImageView
                 android:id="@+id/imageView4"
-                android:layout_width="150px"
-                android:layout_height="250px"
+                android:layout_width="55dp"
+                android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:background="@color/color_icon2"
+                android:foreground="@drawable/ic_launcher_background"
+                android:foregroundTint="#5B020202"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_charmander" />
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="150px"
-                android:layout_height="250px"
+                android:layout_width="55dp"
+                android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:foreground="@drawable/ic_launcher_background"
+                android:foregroundTint="#5B020202"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_mankey" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,30 +77,40 @@
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="150px"
-                android:layout_height="250px"
+                android:layout_width="55dp"
+                android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:background="@color/color_icon4"
+                android:foreground="@drawable/ic_launcher_background"
+                android:foregroundTint="#5B020202"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_pikachu" />
 
             <ImageView
                 android:id="@+id/imageView7"
-                android:layout_width="150px"
-                android:layout_height="250px"
+                android:layout_width="55dp"
+                android:layout_height="95dp"
                 android:layout_margin="10dp"
+
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:background="@color/color_icon5"
+                android:foreground="@drawable/ic_launcher_background"
+                android:foregroundTint="#5B020202"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_snorlax" />
 
             <ImageView
                 android:id="@+id/imageView8"
-                android:layout_width="150px"
-                android:layout_height="250px"
+                android:layout_width="55dp"
+                android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:background="@color/color_icon6"
+                android:foreground="@drawable/ic_launcher_background"
+                android:foregroundTint="#5B020202"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_squirtle" />
         </LinearLayout>
     </LinearLayout>
 
@@ -111,7 +130,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="2. - Ingresa tus Datos" />
+            android:text="2. - Ingresa tus Datos"
+            android:textColor="@color/colorPrimaryDark"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinp_newUserName"
@@ -154,7 +174,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:foregroundGravity="bottom|center"
-        android:text="Button"
+        android:text="Registrarse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

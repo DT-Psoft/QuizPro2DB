@@ -21,7 +21,7 @@ import com.example.quizapppro2.Class.Entities.*
     ], version = 2
 )
 
-abstract class AppDatabase : RoomDatabase(){
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun User_ConfigurationDAO(): User_ConfigurationDAO
     abstract fun UserDAO(): UserDAO

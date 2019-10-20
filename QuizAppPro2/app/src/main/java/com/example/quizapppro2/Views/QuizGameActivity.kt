@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.example.quizapppro2.Class.GameResults
 import com.example.quizapppro2.ViewModels.GameViewModel
 import com.example.quizapppro2.R

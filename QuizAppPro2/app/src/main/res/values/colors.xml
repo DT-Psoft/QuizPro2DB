@@ -6,5 +6,12 @@
     <color name="colorControlActive">#05253C</color>
     <color name="DarkButton">#05253C</color>
     <color name="LightButton">#FFFFFF</color>
+    <color name="color_icon1">#47C67B</color>
+    <color name="color_icon6">#70D3E0</color>
+    <color name="color_icon5">#0D5C9E</color>
+    <color name="color_icon4">#FFB000</color>
+    <color name="color_icon3">#e2bf91</color>
+    <color name="color_icon2">#E86207</color>
+
 
 </resources>
