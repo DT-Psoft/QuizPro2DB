@@ -33,8 +33,8 @@ interface UserDAO: User_ConfigurationDAO {
     @Query("SELECT*FROM user where user_name = :name")
     fun getUserByName(name: String): UserETY
 
-    @Query("SELECT*FROM user where user_name = :name AND password = :password")
-    fun getUserByLoggin(name: String, password: String): UserETY?
+    //@Query("SELECT*FROM user where user_name = :name AND password = :password")
+    //fun getUserByLoggin(name: String, password: String): UserETY?
 
     @Query("SELECT*FROM user where is_logged = 1")
     fun getUserByIsLogged(): UserETY
