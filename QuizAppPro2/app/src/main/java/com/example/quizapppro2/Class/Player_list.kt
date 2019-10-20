@@ -5,4 +5,5 @@ class Player_list(name:String, score:String, avatar:Int, icon:Int?) {
     val Score=score
     val Avatar=avatar
     val Icon= icon
+    //probando para cristian
 }
