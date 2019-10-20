@@ -38,7 +38,7 @@
                 android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@color/color_icon1"
+
                 android:foreground="@drawable/ic_launcher_background"
                 android:foregroundTint="#66020202"
                 android:scaleType="fitCenter"
@@ -50,7 +50,7 @@
                 android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@color/color_icon2"
+
                 android:foreground="@drawable/ic_launcher_background"
                 android:foregroundTint="#66020202"
                 android:scaleType="fitCenter"
@@ -81,7 +81,7 @@
                 android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@color/color_icon4"
+
                 android:foreground="@drawable/ic_launcher_background"
                 android:foregroundTint="#66020202"
                 android:scaleType="fitCenter"
@@ -94,7 +94,7 @@
                 android:layout_margin="10dp"
 
                 android:layout_weight="1"
-                android:background="@color/color_icon5"
+
                 android:foreground="@drawable/ic_launcher_background"
                 android:foregroundTint="#66020202"
                 android:scaleType="fitCenter"
@@ -106,7 +106,7 @@
                 android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@color/color_icon6"
+
                 android:foreground="@drawable/ic_launcher_background"
                 android:foregroundTint="#66020202"
                 android:scaleType="fitCenter"
