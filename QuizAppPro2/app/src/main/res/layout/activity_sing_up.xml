@@ -38,9 +38,9 @@
                 android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-
+                android:background="@color/color_icon1"
                 android:foreground="@drawable/ic_launcher_background"
-                android:foregroundTint="#5B020202"
+                android:foregroundTint="#66020202"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_bullbasaur" />
 
@@ -50,9 +50,9 @@
                 android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-
+                android:background="@color/color_icon2"
                 android:foreground="@drawable/ic_launcher_background"
-                android:foregroundTint="#5B020202"
+                android:foregroundTint="#66020202"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_charmander" />
 
@@ -63,7 +63,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:foreground="@drawable/ic_launcher_background"
-                android:foregroundTint="#5B020202"
+                android:foregroundTint="#66020202"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_mankey" />
         </LinearLayout>
@@ -81,9 +81,9 @@
                 android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-
+                android:background="@color/color_icon4"
                 android:foreground="@drawable/ic_launcher_background"
-                android:foregroundTint="#5B020202"
+                android:foregroundTint="#66020202"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_pikachu" />
 
@@ -94,9 +94,9 @@
                 android:layout_margin="10dp"
 
                 android:layout_weight="1"
-
+                android:background="@color/color_icon5"
                 android:foreground="@drawable/ic_launcher_background"
-                android:foregroundTint="#5B020202"
+                android:foregroundTint="#66020202"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_snorlax" />
 
@@ -106,9 +106,9 @@
                 android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-
+                android:background="@color/color_icon6"
                 android:foreground="@drawable/ic_launcher_background"
-                android:foregroundTint="#5B020202"
+                android:foregroundTint="#66020202"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_squirtle" />
         </LinearLayout>
@@ -145,7 +145,9 @@
                 android:hint="Nombre de Usuario"
                 android:inputType="number|textPersonName"
                 android:maxLength="3"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -161,7 +163,9 @@
                 android:hint="Confirmar Nombre Usuario"
                 android:inputType="number|textPersonName"
                 android:maxLength="3"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
