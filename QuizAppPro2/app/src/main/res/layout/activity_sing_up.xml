@@ -40,9 +40,10 @@
                 android:layout_weight="1"
                 android:background="@color/color_icon1"
                 android:foreground="@drawable/ic_launcher_background"
-                android:foregroundTint="#66020202"
+                android:foregroundTint="#B3020202"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_bullbasaur" />
+                android:src="@drawable/ic_bullbasaur"
+                app:srcCompat="@drawable/ic_bullbasaur" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -52,9 +53,10 @@
                 android:layout_weight="1"
                 android:background="@color/color_icon2"
                 android:foreground="@drawable/ic_launcher_background"
-                android:foregroundTint="#66020202"
+                android:foregroundTint="#B3020202"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_charmander" />
+                android:src="@drawable/ic_charmander"
+                android:tag="image" />
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -63,7 +65,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:foreground="@drawable/ic_launcher_background"
-                android:foregroundTint="#66020202"
+                android:foregroundTint="#B3020202"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_mankey" />
         </LinearLayout>
@@ -83,7 +85,7 @@
                 android:layout_weight="1"
                 android:background="@color/color_icon4"
                 android:foreground="@drawable/ic_launcher_background"
-                android:foregroundTint="#66020202"
+                android:foregroundTint="#B3020202"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_pikachu" />
 
@@ -96,7 +98,7 @@
                 android:layout_weight="1"
                 android:background="@color/color_icon5"
                 android:foreground="@drawable/ic_launcher_background"
-                android:foregroundTint="#66020202"
+                android:foregroundTint="#B3020202"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_snorlax" />
 
@@ -108,7 +110,7 @@
                 android:layout_weight="1"
                 android:background="@color/color_icon6"
                 android:foreground="@drawable/ic_launcher_background"
-                android:foregroundTint="#66020202"
+                android:foregroundTint="#B3020202"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_squirtle" />
         </LinearLayout>
@@ -143,7 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nombre de Usuario"
-                android:inputType="number|textPersonName"
+                android:inputType="textVisiblePassword|textCapSentences|textPassword|textCapWords|textCapCharacters"
                 android:maxLength="3"
                 android:maxLines="1"
                 android:textAllCaps="true"
@@ -151,7 +153,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textinp_newUserPassword"
+            android:id="@+id/textinp_confirmName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
@@ -161,7 +163,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Confirmar Nombre Usuario"
-                android:inputType="number|textPersonName"
+                android:inputType="textVisiblePassword|textCapSentences|textPassword|textCapWords|textCapCharacters"
                 android:maxLength="3"
                 android:maxLines="1"
                 android:textAllCaps="true"
