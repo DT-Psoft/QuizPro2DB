@@ -12,4 +12,7 @@ import com.example.quizapppro2.Class.Entities.*
 interface CategoryDAO {
     @Query("SELECT * FROM category ORDER BY id_category")
     fun getAll(): List<CategoryETY>
+
+    @Query("SELECT * FROM category where id_category = :id")
+    fun getCategoryById(id:Int): CategoryETY
 }

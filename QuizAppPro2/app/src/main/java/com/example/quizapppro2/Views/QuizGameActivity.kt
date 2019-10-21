@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.quizapppro2.Class.AppDatabase
 import com.example.quizapppro2.Class.GameResults
 import com.example.quizapppro2.ViewModels.GameViewModel
@@ -20,30 +21,12 @@ class QuizGameActivity : AppCompatActivity() {
 
     val db = AppDatabase.getAppDatabase(this)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
     protected inline fun <VM : ViewModel> viewModelFactory(crossinline f: () -> VM) =
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(aClass: Class<T>): T = f() as T
         }
 
-    private val model by lazy {
+    private val vm by lazy {
         ViewModelProviders.of(
             this,
             viewModelFactory { GameViewModel(this) }
@@ -70,22 +53,22 @@ class QuizGameActivity : AppCompatActivity() {
 
     private var score: Int = 0
     private var cont: Int = 0
-    private var currentNumOfButtonsAvailables = when(Configuration.conf.dificulty){
+    private var currentNumOfButtonsAvailables = when(vm.configuration.dificulty){
         0->5
         1->4
         2->3
         else->0
     }
     private fun updateQuestion() {
-        var listCurrentAnswer = model.currentListOfAnswer as MutableList
-        if(model.currentQuestionClueUsed){
-            answersButtons[model.currentListOfAnswer.indexOf(model.currentClueString)].isEnabled = false
-            model.currentQuestionClueUsed = true
+        var listCurrentAnswer = vm.currentListOfAnswer as MutableList
+        if(vm.currentQuestionClueUsed){
+            answersButtons[vm.currentListOfAnswer.indexOf(vm.currentClueString)].isEnabled = false
+            vm.currentQuestionClueUsed = true
         }
         else{
-            listCurrentAnswer= model.getNewListOfCurrentAnswers() as MutableList
+            listCurrentAnswer= vm.getNewListOfCurrentAnswers()
         }
-        currentNumOfButtonsAvailables = when(Configuration.conf.dificulty){
+        currentNumOfButtonsAvailables = when(vm.configuration.dificulty){
             0->5
             1->4
             2->3
@@ -96,11 +79,11 @@ class QuizGameActivity : AppCompatActivity() {
         //esto es un swap de posicion
         var positionOfCorrectAnswer = getRandomNumber()
         var aux = listCurrentAnswer[positionOfCorrectAnswer]
-        var swapPosition = listCurrentAnswer.indexOfFirst{x -> x == model.getCurrentQuestionObject().answer}
-        listCurrentAnswer[positionOfCorrectAnswer] = model.getCurrentQuestionObject().answer
+        var swapPosition = listCurrentAnswer.indexOfFirst{x -> x == vm.getCorretAnswer()}
+        listCurrentAnswer[positionOfCorrectAnswer] = vm.getCorretAnswer()
         listCurrentAnswer[swapPosition] = aux
 
-        when(model.conf.dificulty){
+        when(vm.configuration.dificulty){
             0-> {
                 ansOneButton.setText(listCurrentAnswer[0])
                 ansTwoButton.setText(listCurrentAnswer[1])
@@ -118,16 +101,15 @@ class QuizGameActivity : AppCompatActivity() {
                 ansTwoButton.setText(listCurrentAnswer[1])}
         }
 
-        if(model.getCurrentQuestionObject().state) {
+        if(vm.getCurrentQuestionObject().state) {
             var aux = answersButtons.toList()
             aux.forEach{x -> x.isEnabled = false}
 
         }
-
-        questionTextView.setText(model.getCurrentQuestion())
+        questionTextView.setText(vm.getCurrentQuestion())
         questionContTextView.text =
-            "Pregunta: ${model.getCurrentQuestionNum() + 1}/${model.numOfQuestion}"
-        questionNumTextView.text = "Pregunta: ${model.getCurrentQuestionNum() + 1}"
+            "Pregunta: ${vm.getCurrentQuestionNum() + 1}/${vm.numOfQuestion}"
+        questionNumTextView.text = "Pregunta: ${vm.getCurrentQuestionNum() + 1}"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -148,19 +130,19 @@ class QuizGameActivity : AppCompatActivity() {
         questionNumTextView = findViewById(R.id.quesNum_text)
         cluesNumTextView = findViewById(R.id.pistas_counter)
 
-        cluesNumTextView.isEnabled =( model.conf.cluesOn && (model.currentClue < model.conf.clues_number) ) || model.currentQuestionClueUsed
-        cluesNumTextView.text = if(model.conf.cluesOn) "Pistas: ${model.currentClue}/${model.numOfClues}" else "Pistas: 0/0"
+        cluesNumTextView.isEnabled =( (vm.configuration.clues_on == 1) && (vm.currentClue < vm.configuration.number_of_clues) ) || vm.currentQuestionClueUsed
+        cluesNumTextView.text = if(vm.configuration.clues_on == 1) "Pistas: ${vm.currentClue}/${vm.numOfClues}" else "Pistas: 0/0"
         updateQuestion()
-        cluesOnThisQuestion = !model.currentQuestionClueUsed
+        cluesOnThisQuestion = !vm.currentQuestionClueUsed
         nextButton.setOnClickListener() {
-            model.nextQuestion()
+            vm.nextQuestion()
             updateQuestion()
-            buttonsAreEnabled(!model.currentQuestionState)
+            buttonsAreEnabled(!vm.currentQuestionState)
         }
         previousButton.setOnClickListener() {
-            model.previousQuestion()
+            vm.previousQuestion()
             updateQuestion()
-            buttonsAreEnabled(!model.currentQuestionState)
+            buttonsAreEnabled(!vm.currentQuestionState)
         }
         //Botones de Posibles respuestas
         ansOneButton.setOnClickListener() {
@@ -178,26 +160,25 @@ class QuizGameActivity : AppCompatActivity() {
 
         cluesNumTextView.setOnClickListener{
 
-            if(cluesOnThisQuestion && !model.getCurrentQuestionObject().state){
+            if(cluesOnThisQuestion && !vm.getCurrentQuestionObject().state){
                 currentNumOfButtonsAvailables--
                 var rnds = getRandomNumber()
                 var posOfAnswer = getPositionOfCorrectAnswer()
                 while(rnds == posOfAnswer) {
                     rnds = getRandomNumber()
                 }
-                model.currentClueString = model.currentListOfAnswer[rnds]
-                if(model.currentClue < model.conf.clues_number){
-                    model.currentClue++
+                vm.currentClueString = vm.currentListOfAnswer[rnds]
+                if(vm.currentClue < vm.configuration.number_of_clues){
+                    vm.currentClue++
                 }
-                if(model.currentClue == model.numOfClues){
+                if(vm.currentClue == vm.numOfClues){
                     cluesNumTextView.isEnabled = false
                 }
-                model.currentQuestionClueUsed = true
-                cluesNumTextView.text = "Pistas: ${model.currentClue}/${model.numOfClues}"
+                vm.currentQuestionClueUsed = true
+                cluesNumTextView.text = "Pistas: ${vm.currentClue}/${vm.numOfClues}"
                 answersButtons[rnds].isEnabled = false
                 cluesOnThisQuestion = false
-                model.setPlayerCheater()
-
+                vm.setPlayerCheater()
             }
 
         }
@@ -214,11 +195,11 @@ class QuizGameActivity : AppCompatActivity() {
                         Toast.makeText(this, "Juego cancelado", Toast.LENGTH_SHORT).show()
                     }
                     Activity.RESULT_OK ->{
-                        model.player.initials = if(data?.getStringExtra(EXTRA_RESULT_TEXT).toString() == "")
-                            model.player.initials
+                        vm.player.user_name= if(data?.getStringExtra(EXTRA_RESULT_TEXT).toString() == "")
+                            vm.player.user_name
                         else data?.getStringExtra(EXTRA_RESULT_TEXT).toString()
 
-                        model.score.AddPlayer()
+                        vm.score.AddPlayer()
                         val intentScore = Intent(this, LeaderboardActivity::class.java)
                         startActivityForResult(intentScore, SCOREACTIVITY_REQUEST_CODE)
                     }
@@ -228,9 +209,9 @@ class QuizGameActivity : AppCompatActivity() {
     }
 
     fun onAnswered(answered: String) {
-        model.setAnsweredAt(model.getCurrentQuestionNum(), answered)
+        vm.setAnsweredAt(vm.getCurrentQuestionNum(), answered)
         buttonsAreEnabled(false)
-        if (model.answeredCont == model.numOfQuestion) {
+        if (vm.answeredCont == vm.numOfQuestion) {
             val intentName = Intent(this, NameActivity::class.java)
             startActivityForResult(intentName, NAMEACTIVITY_REQUEST_CODE)
         }
@@ -244,15 +225,15 @@ class QuizGameActivity : AppCompatActivity() {
     }
 
     fun getPositionOfCorrectAnswer() : Int{
-        return model.currentListOfAnswer.indexOf(model.getCurrentQuestionObject().answer)
+        return vm.currentListOfAnswer.indexOf(vm.getCorretAnswer())
     }
 
-    fun getRandomNumber(): Int = when(model.conf.dificulty){
+    fun getRandomNumber(): Int = when(vm.configuration.dificulty){
             0-> (0..3).random()
             1-> (0..2).random()
             2 -> (0..1).random()
             else -> -1
-    }*/
+    }
 
 }
 
