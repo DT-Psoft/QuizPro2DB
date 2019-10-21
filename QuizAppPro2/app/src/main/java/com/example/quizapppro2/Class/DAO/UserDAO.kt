@@ -33,18 +33,12 @@ interface UserDAO: User_ConfigurationDAO {
     @Query("DELETE FROM user where id_user = :id")
     fun deleteUserById(id:Int)
 
-    @Query("SELECT*FROM user where user_name = :name")
+    @Query("SELECT * FROM user WHERE user_name LIKE :name")
     fun getUserByName(name: String): UserETY
 
-    @Query("SELECT*FROM user where user_name = :name")
-    fun getUserByLoggin(name: String): UserETY?
-
-    @Query("SELECT*FROM user where is_logged = 1")
+    @Query("SELECT*FROM user where user.is_logged= 1")
     fun getUserByIsLogged(): UserETY
 
     @Query("SELECT*FROM user")
     fun getAllUsers(): Array<UserETY>
-
-
-
 }

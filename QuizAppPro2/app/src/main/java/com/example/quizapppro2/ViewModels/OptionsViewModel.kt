@@ -12,7 +12,7 @@ class OptionsViewModel(context: Context) : ViewModel() {
     lateinit var context: Context
     private var db: AppDatabase =  AppDatabase.getAppDatabase(context)
 
-    var configuration: User_ConfigurationETY = AppDatabase.getCurrentConfiguration()
+    var configuration = User_ConfigurationETY(AppDatabase.getCurrentConfiguration().user_id)
     lateinit var user: UserETY
 
     var categories: Array<Boolean> = arrayOf(true,true,true,true,true,true)
@@ -44,7 +44,7 @@ class OptionsViewModel(context: Context) : ViewModel() {
         string += if(categories[5]) "1" else "0"
 
         configuration.categories_selected = string
-
+        AppDatabase.setCurrentConfiguration(configuration)
         db.User_ConfigurationDAO().updateConfiguration(configuration)
     }
     fun getCheckedCategory(pos:Int): Boolean {
