@@ -33,7 +33,6 @@ class LoginActivity : AppCompatActivity() {
         val db = AppDatabase.getAppDatabase(this)
 
 
-
         //----- ESTO SOLO SE HACE UNA VEZ, SI YA LO HICISTE COMENTALO Y DESCOMENTA LO DE ABAJO -------
 
         //Kike : meto un usuario
@@ -46,53 +45,47 @@ class LoginActivity : AppCompatActivity() {
         AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLogged() as UserETY)
         AppDatabase.setCurrentConfiguration(
             db.User_ConfigurationDAO().getConfigurationByUserId(
-                AppDatabase.getCurrentUser().id_user))
+                AppDatabase.getCurrentUser().id_user
+            )
+        )
 
 
 //        AppDatabase.getLoginUser()
+        val btnOpenMenu: Button = findViewById(R.id.btn_login)
+        btnOpenMenu.setOnClickListener {
+            val username2: UserETY? = db.UserDAO().getUserByName(editTextUserName.text.toString())
+            //      for(i in username2.indices) {
+            val login = username2
+            var useridLogged = db.UserDAO().getUserByIsLogged() as UserETY
 
+            if (login == null) {
+                Toast.makeText(
+                    this,
+                    "Datos incorrectos",
+                    Toast.LENGTH_SHORT
+                ).show()
 
-        val btnOpenMenu : Button = findViewById(R.id.btn_login)
-        btnOpenMenu.setOnClickListener{
-        val username2 : UserETY? = db.UserDAO().getUserByName(editTextUserName.text.toString())
-            val isLoggedUSER :UserETY? = db.UserDAO().getUserByIsLogged()
-      //      for(i in username2.indices) {
-                val login = username2
-            var userIdLogged = db.UserDAO().getUserByIsLogged() as UserETY
-
-                if (login == null) {
-
-                    Toast.makeText(
-                        this,
-                        "Datos incorrectos",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }else
-                {
-                    if(userIdLogged.is_logged == null) {
-                        login.is_logged = 1
-                    }else {
-                        userIdLogged.is_logged = 0
-                        login.is_logged = 1
-                        db.UserDAO().UpdateUser(userIdLogged)
-                        db.UserDAO().UpdateUser(login)
-                        val intentMain = Intent(this, MainActivity::class.java)
-                        startActivityForResult(intentMain, OPTIONSACTIVITY_REQUEST_CODE)
-                    }
-
+            } else {
+                //useridLogged.is_logged = 1
+                if (useridLogged == null){
+                    login.is_logged = 1
                 }
-        //    }
-
+                else{
+                    useridLogged.is_logged = 0
+                    login.is_logged = 1
+                    db.UserDAO().UpdateUser(useridLogged)
+                    db.UserDAO().UpdateUser(login)
+                    val intentMain = Intent(this, MainActivity::class.java)
+                    startActivity(intentMain)
+                }
+            }
         }
 
-        val textRegistrar : TextView = findViewById(R.id.textview_sing_up)
-        textRegistrar.setOnClickListener{
-            val intentSignUp  = Intent(this, SingUpActivity:: class.java)
-            startActivityForResult(intentSignUp,OPTIONSACTIVITY_REQUEST_CODE)
+        val textRegistrar: TextView = findViewById(R.id.textview_sing_up)
+        textRegistrar.setOnClickListener {
+            val intentSignUp = Intent(this, SingUpActivity::class.java)
+            startActivityForResult(intentSignUp, OPTIONSACTIVITY_REQUEST_CODE)
         }
-
-
-
 
 
     }
