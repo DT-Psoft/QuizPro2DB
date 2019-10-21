@@ -34,10 +34,10 @@ interface UserDAO: User_ConfigurationDAO {
     fun deleteUserById(id:Int)
 
     @Query("SELECT * FROM user WHERE user_name = :name")
-    fun getUserByName(name: String): UserETY
+    fun getUserByName(name: String): UserETY?
 
     @Query("SELECT*FROM user where user.is_logged= 1")
-    fun getUserByIsLogged(): UserETY
+    fun getUserByIsLogged(): UserETY?
 
     @Query("SELECT*FROM user")
     fun getAllUsers(): Array<UserETY>

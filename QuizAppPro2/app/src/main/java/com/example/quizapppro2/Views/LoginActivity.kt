@@ -21,7 +21,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-    //   var editTextUserName = findViewById(R.id.textinp_user_name) as TextInputLayout
+        //this.deleteDatabase("quizzapp.db")
+
         val editTextUserName = findViewById<TextInputEditText>(R.id.textinp_user_name)
 
 
@@ -30,32 +31,47 @@ class LoginActivity : AppCompatActivity() {
 
         // => Obtener referencia a base de datos basada en librería Room
         val db = AppDatabase.getAppDatabase(this)
-        val categorias = db.getCategoriesDAO().getAll()
+
 
 
         //----- ESTO SOLO SE HACE UNA VEZ, SI YA LO HICISTE COMENTALO Y DESCOMENTA LO DE ABAJO -------
 
         //Kike : meto un usuario
-       db.UserDAO().InsertUserWithConfig(UserETY("fed", 1, 1))
+        db.UserDAO().InsertUserWithConfig(UserETY("FED", 1, 2131230842))
+        db.UserDAO().InsertUserWithConfig(UserETY("QWE", 0, 2131230842))
 
         //inserto una nueva configuracion (Recuerda que si quieres crear una configuration necesitas pasarle el id del usuario)
 
         // ----- SI YA HICISTE LO DE ARRIBA SOLO HAZ ESTO Y COMENTA LO DE ARRIBA -------
-        AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLogged())
+        AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLogged() as UserETY)
         AppDatabase.setCurrentConfiguration(
             db.User_ConfigurationDAO().getConfigurationByUserId(
                 AppDatabase.getCurrentUser().id_user))
 
 
-        AppDatabase.getLoginUser()
-     //   val username2 : Array<UserETY> = db.UserDAO().getAllUsers()
+//        AppDatabase.getLoginUser()
+
 
         val btnOpenMenu : Button = findViewById(R.id.btn_login)
         btnOpenMenu.setOnClickListener{
-        val username2 = db.UserDAO().getUserByName(editTextUserName.text.toString())
+        val username2 : UserETY? = db.UserDAO().getUserByName(editTextUserName.text.toString())
       //      for(i in username2.indices) {
                 val login = username2
 
+
+            var useridLogged = db.UserDAO().getUserByIsLogged() as UserETY
+            var userNameLogged = db.UserDAO().getUserByName(editTextUserName.text.toString()) as UserETY
+
+
+          //  useridLogged.user_name = "ooo"
+         //   useridLogged.is_logged = 0
+
+          //  userNameLogged.is_logged = 1
+
+        //    db.UserDAO().UpdateUser(useridLogged)
+        //    db.UserDAO().UpdateUser(userNameLogged)
+
+            db.UserDAO().UpdateUser(useridLogged)
                 if (login == null) {
 
                     Toast.makeText(
@@ -63,28 +79,23 @@ class LoginActivity : AppCompatActivity() {
                         "Datos incorrectos",
                         Toast.LENGTH_SHORT
                     ).show()
+                  //  userNameLogged.is_logged = 0
+                    useridLogged.is_logged = 0
+                    db.UserDAO().UpdateUser(useridLogged)
+                    db.UserDAO().UpdateUser(userNameLogged)
 
                 }else
                 {
-                        login.is_logged = 1
+                    //useridLogged.is_logged = 1
+                    userNameLogged.is_logged = 1
+                    db.UserDAO().UpdateUser(useridLogged)
+                    db.UserDAO().UpdateUser(userNameLogged)
+
 
                         val intentMain = Intent(this, MainActivity::class.java)
                         startActivityForResult(intentMain, OPTIONSACTIVITY_REQUEST_CODE)
 
-                        db.User_ConfigurationDAO().AddConfiguration(
-                            User_ConfigurationETY(
-                                db.UserDAO().getUserByIsLogged().id_user)
-                        )
-                }
 
-
-
-                if (login.user_name != editTextUserName.text.toString()) {
-                    Toast.makeText(
-                        this,
-                        "Usuario no creado",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
         //    }
 
