@@ -24,6 +24,9 @@ interface UserDAO: User_ConfigurationDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun AddUser(user : UserETY): Long
 
+    @Update
+    fun UpdateUser(user: UserETY)
+
     @Delete
     fun deleteUser(vararg User: UserETY)
 

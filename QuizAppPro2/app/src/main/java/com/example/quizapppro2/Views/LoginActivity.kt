@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.quizapppro2.Class.AppDatabase
@@ -12,9 +11,6 @@ import com.example.quizapppro2.Class.Entities.UserETY
 import com.example.quizapppro2.R
 import com.facebook.stetho.Stetho
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_sing_up.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -56,32 +52,28 @@ class LoginActivity : AppCompatActivity() {
 
         AppDatabase.getLoginUser()
 
-        val username2 : Array<UserETY> = db.UserDAO().getAllUsers()
+        val username2 : UserETY = db.UserDAO().getUserByName(editTextUserName.text.toString())
 
         val btnOpenMenu : Button = findViewById(R.id.btn_login)
         btnOpenMenu.setOnClickListener{
-            for(i in username2.indices) {
-                val login = username2[i]
+           // for(i in username2.indices) {
+         //       val login = username2[i]
+            val login = username2
                 if (login.user_name == editTextUserName.text.toString()) {
                     val intentMain = Intent(this, MainActivity::class.java)
                     startActivityForResult(intentMain, OPTIONSACTIVITY_REQUEST_CODE)
 
-                    Toast.makeText(
-                        this,
-                        "Inicio Exitoso",
-                        Toast.LENGTH_SHORT
-                    ).show()
 
-                    break
+        //            break
                 }
                 if (login.user_name != editTextUserName.text.toString()) {
                     Toast.makeText(
                         this,
-                        "Usuario incorrecto, intente denuevo o registre un usuario",
+                        "Usuario no existe",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            }
+           // }
 
         }
 
