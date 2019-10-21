@@ -18,7 +18,7 @@ class OptionsViewModel(context: Context) : ViewModel() {
     var categoriesNumber = 6
     val arrayQuestionsNumber : Array<Int> = arrayOf(5, 6, 7, 8, 9,10)
     val arrayCluesNumber = arrayOf(1, 2, 3)
-    var arrayOfPointsValue = arrayOf(3,2,1)
+
 
     init{
         getCategoriesEnabled()
@@ -49,7 +49,6 @@ class OptionsViewModel(context: Context) : ViewModel() {
     fun getCheckedCategory(pos:Int): Boolean {
         return categories[pos]
     }
-    fun getPointsValue() = arrayOfPointsValue[configuration.dificulty]
 
     fun setEnabledCategory(pos:Int, value: Boolean){
         categories[pos]= value

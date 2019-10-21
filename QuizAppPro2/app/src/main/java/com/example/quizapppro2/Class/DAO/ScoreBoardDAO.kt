@@ -11,4 +11,13 @@ import com.example.quizapppro2.Class.Entities.ScoreBoardETY
 interface ScoreBoardDAO {
     @Query("SELECT * FROM scoreboard")
     fun getAll(): MutableList<ScoreBoardETY>
+    @Query("SELECT*FROM scoreboard WHERE id_scoreboard = :id ")
+    fun getScoreboardById(id:Int):ScoreBoardETY
+
+    @Insert
+    fun insertScoreboard(scoreBoard: ScoreBoardETY)
+    @Delete
+    fun deleteScoreboard(scoreBoard: ScoreBoardETY)
+    @Update
+    fun updatetScoreboard(scoreBoard: ScoreBoardETY)
 }
