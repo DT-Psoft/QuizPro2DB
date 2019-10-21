@@ -18,16 +18,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2">
+        app:layout_constraintVertical_bias="0.100000024">
 
         <ImageButton
             android:id="@+id/tool_button"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_game_icon"
             android:backgroundTint="@android:color/transparent"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_game_icon" />
     </LinearLayout>
 
     <LinearLayout
@@ -70,5 +70,77 @@
             android:padding="5dp"
             android:text="PUNTUACIÓN" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ImageView
+            android:id="@+id/imageView_userIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textView_userName"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/LightButton"
+            android:textStyle="bold"
+            tools:text="CRP" />
+
+        <TextView
+            android:id="@+id/textView_Hi"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Bienvenido a Quizz App Pro"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/LightButton" />
+
+        <ImageButton
+            android:id="@+id/imageButton_options"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|left|end"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_settings"
+            android:tint="#12FFEBEB" />
+
+        <ImageButton
+            android:id="@+id/imageButton_logout"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|left|end"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_logout" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

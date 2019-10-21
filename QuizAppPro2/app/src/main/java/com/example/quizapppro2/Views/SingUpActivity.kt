@@ -16,6 +16,7 @@ import com.example.quizapppro2.R
 import com.google.android.material.textfield.TextInputEditText
 
 class SingUpActivity : AppCompatActivity() {
+
     lateinit var imageView_ic1: ImageView
     lateinit var imageView_ic2: ImageView
     lateinit var imageView_ic3: ImageView
@@ -25,6 +26,7 @@ class SingUpActivity : AppCompatActivity() {
     var selectedIcon = 0
     lateinit var signupButton: Button
     lateinit var currentImageView: ImageView
+
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,12 +105,13 @@ class SingUpActivity : AppCompatActivity() {
     }
 
     private fun validateSinguUp(userName: String, confirmUserName: String) {
+        var succesRegister = false
         if (userName != confirmUserName || userName.length < 3) {
             var msg =
                 when {
                     userName != confirmUserName -> "El nombre de usuario no concuerda"
                     userName.length < 3 -> "Debes colocar 3 Caracteres en tu nombre"
-                    else -> "Rebice sus datos, error en formularios"
+                    else -> "Revice sus datos, error en formularios"
                 }
             Toast.makeText(
                 this,
@@ -125,12 +128,19 @@ class SingUpActivity : AppCompatActivity() {
                             selectedIcon
                         )
                     )
-                ) "USUARIO REGISTRADO" else "ERROR:USUARIO REGISTRADO, inserte otro nombre"
+                ) {
+                    succesRegister = true
+                    "USUARIO REGISTRADO"
+                } else "ERROR:USUARIO REGISTRADO, inserte otro nombre"
             Toast.makeText(
                 this,
                 msg,
                 Toast.LENGTH_SHORT
             ).show()
+        }
+        if (succesRegister) {
+            succesRegister = false
+            finish()
         }
     }
 }

@@ -52,20 +52,25 @@
 
         <Button
             android:id="@+id/btn_login"
+            style="@style/DarkButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Iniciar Sesion" />
 
-        <TextView
+        <Button
             android:id="@+id/textview_sing_up"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
+            android:backgroundTint="#F8F8F8"
+            android:gravity="center"
             android:linksClickable="true"
-            android:text="¿No tienes usuario? Registrarme"
-            android:textColorLink="#2196F3" />
+            android:text="¿No tienes usuario? REGISTRARME"
+            android:textAllCaps="false"
+            android:textColor="#1997C9" />
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

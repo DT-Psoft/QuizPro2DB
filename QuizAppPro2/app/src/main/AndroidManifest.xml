@@ -14,7 +14,7 @@
         <activity
             android:name=".Views.ScoreboardActivity"
             android:label="Puntuaciones Globales"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
 
         <activity android:name=".Views.NameActivity" />
 
