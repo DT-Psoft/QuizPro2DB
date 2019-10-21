@@ -27,11 +27,14 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun QuestionDAO(): QuestionDAO
     abstract fun AnswerDAO(): AnswerDAO
     abstract fun ScoreBoardDAO(): ScoreBoardDAO
+    abstract fun LastGameDAO(): LastGameDAO
+    abstract fun LastGame_QuestionDAO(): LastGame_QuestionDAO
+    abstract fun LastGame_AnswerDAO(): LastGame_AnswerDAO
 
 
     companion object {
         private var INSTANCE: AppDatabase? = null
-
+        lateinit var context: Context
         private lateinit var questions : QuestionETY
         private lateinit var loginTheUser : UserETY
         private lateinit var currentUser : UserETY
@@ -57,8 +60,9 @@ abstract class AppDatabase : RoomDatabase() {
             currentUser = user
         }
 
-        fun getAppDatabase(context: Context): AppDatabase {
+        fun getAppDatabase(contxt: Context): AppDatabase {
             if (INSTANCE == null) {
+                context = contxt
                 INSTANCE = Room.databaseBuilder(
                     context.getApplicationContext(),
                     AppDatabase::class.java,

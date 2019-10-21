@@ -10,13 +10,16 @@ import com.example.quizapppro2.Class.QuestionClass
 import com.example.quizapppro2.Views.Configuration
 import com.example.quizapppro2.Views.Score
 
-class GameViewModel(context: Context) : ViewModel() {
+class GameViewModel() : ViewModel() {
 
-    lateinit var context: Context
-    private var db: AppDatabase =  AppDatabase.getAppDatabase(context)
-    var configuration = AppDatabase.getCurrentConfiguration()
+    var context = AppDatabase.context
+    private var db: AppDatabase = AppDatabase.getAppDatabase(context)
+    var configuration = User_ConfigurationETY(AppDatabase.getCurrentConfiguration().id_user_config)
     var user: UserETY =AppDatabase.getCurrentUser()
     var scoreboard = ScoreBoardETY(configuration.number_of_questions,user.id_user)
+    lateinit var lastgame : LastGameETY
+    lateinit var lastgameQuestions: MutableList<LastGame_QuestionETY>
+    lateinit var lastgameAnswer: MutableList<LastGame_AnswerETY>
 
     var currentClue: Int = 0
     var answeredCont: Int = 0
@@ -26,7 +29,12 @@ class GameViewModel(context: Context) : ViewModel() {
     var currentQuestion: Int = 0
     var arrayOfPointsValue = arrayOf(3,2,1)
     lateinit var gameQuestionClass : List<QuestionETY>
-    lateinit var currentListOfAnswer : List<String>
+    lateinit var currentListOfAnswerText : List<String>
+    lateinit var currentListOfAnswer : MutableList<AnswerETY>
+
+    //pa saber si el juego terminó
+    var gameFinished = false
+
 
     var score =  Score.score
     var player =  user
@@ -34,7 +42,7 @@ class GameViewModel(context: Context) : ViewModel() {
 
     init {
         gameQuestionClass = getGameQuestions()
-        currentListOfAnswer = getNewListOfCurrentAnswers()
+        currentListOfAnswerText = getNewListOfCurrentAnswer()
     }
 
     private fun setQuestions(list: MutableList<CategoryETY>): MutableList<QuestionETY> {
@@ -91,10 +99,15 @@ class GameViewModel(context: Context) : ViewModel() {
 
     fun getCurrentQuestionNum() = currentQuestion
 
-    fun getNewListOfCurrentAnswers() : MutableList<String>{
-        var aux = db.AnswerDAO().getAnswerTextByCategoryId(gameQuestionClass[currentQuestion].question_id)
-        aux.shuffle()
-        currentListOfAnswer = aux
+    fun getNewListOfCurrentAnswer() : MutableList<String>{
+        currentListOfAnswer = db.AnswerDAO().getAnswerByQuestionId(gameQuestionClass[currentQuestion].question_id)
+        currentListOfAnswer.shuffle()
+        var aux = mutableListOf("1")
+        aux.clear()
+        for(item in currentListOfAnswer){
+            aux.add(item.answer_text)
+        }
+        currentListOfAnswerText = aux
         return aux
     }
 
@@ -122,6 +135,66 @@ class GameViewModel(context: Context) : ViewModel() {
         currentQuestion = (currentQuestion + gameQuestionClass.size - 1) % gameQuestionClass.size
         currentQuestionState = gameQuestionClass[currentQuestion].state
         currentQuestionClueUsed = false
+    }
+    fun insertLastGame(){
+        var aux = db.LastGameDAO().getLastgameByUserId(AppDatabase.getCurrentUser().id_user)
+        //en teoria esto deberia eliminar un registro y de no ser así, "algo" seria 0
+        if(aux != null){
+            db.LastGame_QuestionDAO().deleteLastGameQuestionByIdLastGame(aux.id_lastgame)
+        }
+
+        var id_lastgame = db.LastGameDAO().insertLastGame(LastGameETY(
+            configuration.dificulty,
+            configuration.number_of_questions,
+            answeredCont,
+            currentQuestion,
+            configuration.clues_on,
+            configuration.number_of_clues,
+            scoreboard.score,
+            currentClue,user.id_user,
+            1
+            ))
+        for(item in gameQuestionClass){
+            var id_lastgamequestion = db.LastGame_QuestionDAO().insertLastGameQuestion(
+                LastGame_QuestionETY(
+                    if(item.state) 1 else 0,
+                    if(item.isCorrect) 1 else 0,
+                    getCurrentQuestionObject().question_id,
+                    item.answered,
+                    id_lastgame.toInt()))
+        }
+    }
+
+    fun setLastGame(idlastgame:Int){
+        lastgame = db.LastGameDAO().getLastgameById(idlastgame)
+        //buscamos el lastgame con el id pasado
+        var arrayOfLastGameQuestion = db.LastGame_QuestionDAO().getLastGameQuestionsByLastGameId(lastgame.id_lastgame)
+        var aux = gameQuestionClass as MutableList
+        //buscamos las preguntas y las metemos en el array de preguntas del juego
+        for(item in arrayOfLastGameQuestion){
+            var question = db.QuestionDAO().getQuestionById(item.question_id)
+            question.isCorrect = item.is_correct == 1
+            question.answered = item.answer_by_user
+            question.state = item.answered == 1
+            aux.add(question)
+        }
+        pointsValue = arrayOfPointsValue[configuration.dificulty]
+
+        //seteandotodo lo de lastgame
+        configuration.dificulty = lastgame.dificulty
+        configuration.number_of_questions = lastgame.number_of_questions
+        answeredCont = lastgame.number_of_questions_answered
+        currentQuestion = lastgame.current_question
+        configuration.number_of_clues = lastgame.clues_on
+        lastgame.number_of_clues
+        currentClue = lastgame.clues_left
+        scoreboard.score = lastgame.current_score
+
+        //var arrayOfLastGameAnswer= db.LastGame_AnswerDAO().getLastGameAnswerByLastGameQuestionId(lastgame.id_lastgame)
+    }
+    fun setLastGameInactive(){
+        lastgame.is_active = 0
+        db.LastGameDAO().updateLastGame(lastgame)
     }
 
 

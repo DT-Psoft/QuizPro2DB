@@ -26,7 +26,7 @@ class Opciones2 : AppCompatActivity() {
             override fun <T : ViewModel> create(aClass: Class<T>): T = f() as T
         }
 
-    private val vm by lazy {
+    private val vmO by lazy {
         ViewModelProviders.of(
             this,
             viewModelFactory { OptionsViewModel(this) }
@@ -79,16 +79,16 @@ class Opciones2 : AppCompatActivity() {
 
    //   Categorias CheckBox logica
 
-        todosCheckBox.isChecked = vm.configuration.all_categories == 1
-        cineCheckBox.isChecked = vm.categories[0]
-        historiaCheckBox.isChecked = vm.categories[1]
-        matematicasCheckBox.isChecked = vm.categories[2]
-        fisicaCheckBox.isChecked = vm.categories[3]
-        na1CheckBox.isChecked = vm.categories[4]
-        na2CheckBox.isChecked = vm.categories[5]
+        todosCheckBox.isChecked = vmO.configuration.all_categories == 1
+        cineCheckBox.isChecked = vmO.categories[0]
+        historiaCheckBox.isChecked = vmO.categories[1]
+        matematicasCheckBox.isChecked = vmO.categories[2]
+        fisicaCheckBox.isChecked = vmO.categories[3]
+        na1CheckBox.isChecked = vmO.categories[4]
+        na2CheckBox.isChecked = vmO.categories[5]
 
         todosCheckBox.setOnCheckedChangeListener { _, ischecked ->
-            vm.configuration.all_categories = if(ischecked) 1 else 0
+            vmO.configuration.all_categories = if(ischecked) 1 else 0
             if (ischecked){
                 cineCheckBox.isChecked = true
                 historiaCheckBox.isChecked = true
@@ -123,26 +123,26 @@ class Opciones2 : AppCompatActivity() {
             ArrayAdapter<Int>(
                 this,
                 android.R.layout.simple_spinner_item,
-                vm.arrayQuestionsNumber
+                vmO.arrayQuestionsNumber
             )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
 
         questionSpinner.adapter = adapter
 
-        questionSpinner.setSelection(if(vm.categoriesNumber != 1) vm.configuration.number_of_questions - 5 else 0)
+        questionSpinner.setSelection(if(vmO.categoriesNumber != 1) vmO.configuration.number_of_questions - 5 else 0)
 
-        questionSpinner.isEnabled = vm.categoriesNumber != 1
+        questionSpinner.isEnabled = vmO.categoriesNumber != 1
 
         questionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                vm.configuration.number_of_questions=
+                vmO.configuration.number_of_questions=
                     questionSpinner.selectedItem.toString().toInt()
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
 //          Dificultad
-        var idCurrentRadio = when (vm.configuration.dificulty) {
+        var idCurrentRadio = when (vmO.configuration.dificulty) {
             0 -> altaRadioButton.id
             1 -> mediaRadioButton.id
             2 -> bajaRadioButton.id
@@ -151,24 +151,24 @@ class Opciones2 : AppCompatActivity() {
         radioGroupDificultad.check(idCurrentRadio)
         radioGroupDificultad.setOnCheckedChangeListener { _, _ ->
             when (radioGroupDificultad.checkedRadioButtonId) {
-                altaRadioButton.id -> vm.configuration.dificulty = 0
-                mediaRadioButton.id -> vm.configuration.dificulty = 1
-                bajaRadioButton.id -> vm.configuration.dificulty = 2
+                altaRadioButton.id -> vmO.configuration.dificulty = 0
+                mediaRadioButton.id -> vmO.configuration.dificulty = 1
+                bajaRadioButton.id -> vmO.configuration.dificulty = 2
             }
         }
 
 //          Habilitar pistas
-        pistasSwitch.isChecked = vm.configuration.clues_on == 1
+        pistasSwitch.isChecked = vmO.configuration.clues_on == 1
         pistasSwitch.setOnCheckedChangeListener { _, ischecked ->
-            vm.configuration.clues_on = if(ischecked) 1 else 0
+            vmO.configuration.clues_on = if(ischecked) 1 else 0
             Toast.makeText(
                 this,
                 if (ischecked) "Pistas activadas" else "Pistas desactivadas",
                 Toast.LENGTH_SHORT
             ).show()
-            cheatsSpinner.isEnabled = vm.configuration.clues_on == 1
+            cheatsSpinner.isEnabled = vmO.configuration.clues_on == 1
             if (!ischecked) {
-                vm.configuration.number_of_clues = 1
+                vmO.configuration.number_of_clues = 1
             }
         }
 
@@ -177,36 +177,36 @@ class Opciones2 : AppCompatActivity() {
             ArrayAdapter<Int>(
                 this,
                 android.R.layout.simple_spinner_item,
-                vm.arrayCluesNumber
+                vmO.arrayCluesNumber
             )
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_item)
 
         //si las pistas no estan activas, pues esto tampoco
-        cheatsSpinner.isEnabled = vm.configuration.clues_on == 1
+        cheatsSpinner.isEnabled = vmO.configuration.clues_on == 1
         cheatsSpinner.adapter = adapter1
-        cheatsSpinner.setSelection(vm.configuration.number_of_clues - 1)
+        cheatsSpinner.setSelection(vmO.configuration.number_of_clues - 1)
 
         cheatsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                vm.configuration.number_of_clues= cheatsSpinner.selectedItem.toString().toInt()
+                vmO.configuration.number_of_clues= cheatsSpinner.selectedItem.toString().toInt()
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
 
         saveButton.setOnClickListener{
-            vm.updateOptions()
+            vmO.updateOptions()
         }
     }
     private fun onCheckedChangeListener(pos: Int, checkBox: CheckBox) {
-        if (vm.categoriesNumber == 1 && !checkBox.isChecked){
+        if (vmO.categoriesNumber == 1 && !checkBox.isChecked){
             checkBox.isChecked = true
 
         } else {
             questionSpinner.isEnabled = true
-            vm.setEnabledCategory(pos, checkBox.isChecked)
-            todosCheckBox.isChecked = vm.categoriesNumber == 6
-            if(vm.categoriesNumber == 1){
+            vmO.setEnabledCategory(pos, checkBox.isChecked)
+            todosCheckBox.isChecked = vmO.categoriesNumber == 6
+            if(vmO.categoriesNumber == 1){
                 questionSpinner.isEnabled = false
                 questionSpinner.setSelection(0)
             }
@@ -215,7 +215,7 @@ class Opciones2 : AppCompatActivity() {
     }
 
     fun onRadioButtonClick(view: View) {
-        var string: String = when (vm.configuration.dificulty) {
+        var string: String = when (vmO.configuration.dificulty) {
             0 -> "Dificultad alta"
             1 -> "Dificultad media"
             2 -> "Dificultad baja"

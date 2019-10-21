@@ -16,6 +16,9 @@ interface QuestionDAO {
     @Query("SELECT * FROM question")
     fun getAll(): MutableList<QuestionETY>
 
-    @Query("SELECT * FROM question q JOIN category c ON q.category_id = c.id_category where q.category_id = :id")
+    @Query("SELECT q.* FROM question q JOIN category c ON q.category_id = c.id_category where q.category_id = :id")
     fun getQuestionsByCategoryId(id: Int): MutableList<QuestionETY>
+
+    @Query("SELECT * FROM question WHERE id_question = :id")
+    fun getQuestionById(id:Int) : QuestionETY
 }

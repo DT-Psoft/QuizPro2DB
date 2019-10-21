@@ -4,12 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isGone
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.quizapppro2.Class.AppDatabase
 import com.example.quizapppro2.Class.GameResults
@@ -19,19 +18,19 @@ import com.example.quizapppro2.R
 
 class QuizGameActivity : AppCompatActivity() {
 
-    val db = AppDatabase.getAppDatabase(this)
+//    protected inline fun <VM : ViewModel> viewModelFactory(crossinline f: () -> VM) =
+//        object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel> create(aClass: Class<T>): T = f() as T
+//        }
+//
+//    private val vm by lazy {
+//        ViewModelProviders.of(
+//            this,
+//            viewModelFactory { GameViewModel(this) }
+//        ).get(GameViewModel::class.java)
+//    }
 
-    protected inline fun <VM : ViewModel> viewModelFactory(crossinline f: () -> VM) =
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(aClass: Class<T>): T = f() as T
-        }
-
-    private val vm by lazy {
-        ViewModelProviders.of(
-            this,
-            viewModelFactory { GameViewModel(this) }
-        ).get(GameViewModel::class.java)
-    }
+    private lateinit var vm: GameViewModel
 
     private lateinit var nextButton: Button
     private lateinit var previousButton: Button
@@ -50,23 +49,22 @@ class QuizGameActivity : AppCompatActivity() {
 
     private lateinit var currentQuestion: String
     private var cluesOnThisQuestion = true
+    private var id_lastgame = 0
 
     private var score: Int = 0
     private var cont: Int = 0
-    private var currentNumOfButtonsAvailables = when(vm.configuration.dificulty){
-        0->5
-        1->4
-        2->3
-        else->0
-    }
+    var currentNumOfButtonsAvailables=0
+    private val bundle= intent
+
+
     private fun updateQuestion() {
-        var listCurrentAnswer = vm.currentListOfAnswer as MutableList
+        var listCurrentAnswer = vm.currentListOfAnswerText as MutableList
         if(vm.currentQuestionClueUsed){
-            answersButtons[vm.currentListOfAnswer.indexOf(vm.currentClueString)].isEnabled = false
+            answersButtons[vm.currentListOfAnswerText.indexOf(vm.currentClueString)].isEnabled = false
             vm.currentQuestionClueUsed = true
         }
         else{
-            listCurrentAnswer= vm.getNewListOfCurrentAnswers()
+            listCurrentAnswer= vm.getNewListOfCurrentAnswer()
         }
         currentNumOfButtonsAvailables = when(vm.configuration.dificulty){
             0->5
@@ -115,6 +113,28 @@ class QuizGameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_game)
+
+        //viewmodel inicializar
+        vm = ViewModelProviders.of(this).get(GameViewModel::class.java)
+
+        //recibiendo el id del lastgame, si lo hubo
+        if(bundle!=null)
+        {
+            id_lastgame = bundle.getIntExtra("idlastgame", -1)
+            //si es -1 significa que no hubo
+            if(id_lastgame != -1){
+                vm.setLastGame(id_lastgame)
+            }
+        }
+        //numero de botones dispoibles
+        currentNumOfButtonsAvailables = when(vm.configuration.dificulty){
+            0->5
+            1->4
+            2->3
+            else->0
+        }
+
+
 
         nextButton = findViewById(R.id.nxt_Btn)
         previousButton = findViewById(R.id.prev_Btn)
@@ -167,7 +187,7 @@ class QuizGameActivity : AppCompatActivity() {
                 while(rnds == posOfAnswer) {
                     rnds = getRandomNumber()
                 }
-                vm.currentClueString = vm.currentListOfAnswer[rnds]
+                vm.currentClueString = vm.currentListOfAnswerText[rnds]
                 if(vm.currentClue < vm.configuration.number_of_clues){
                     vm.currentClue++
                 }
@@ -199,6 +219,10 @@ class QuizGameActivity : AppCompatActivity() {
                             vm.player.user_name
                         else data?.getStringExtra(EXTRA_RESULT_TEXT).toString()
 
+                        if(id_lastgame != -1){
+                            vm.setLastGameInactive()
+                        }
+
                         vm.score.AddPlayer()
                         val intentScore = Intent(this, LeaderboardActivity::class.java)
                         startActivityForResult(intentScore, SCOREACTIVITY_REQUEST_CODE)
@@ -225,7 +249,7 @@ class QuizGameActivity : AppCompatActivity() {
     }
 
     fun getPositionOfCorrectAnswer() : Int{
-        return vm.currentListOfAnswer.indexOf(vm.getCorretAnswer())
+        return vm.currentListOfAnswerText.indexOf(vm.getCorretAnswer())
     }
 
     fun getRandomNumber(): Int = when(vm.configuration.dificulty){
@@ -234,7 +258,11 @@ class QuizGameActivity : AppCompatActivity() {
             2 -> (0..1).random()
             else -> -1
     }
-
+    override
+    fun onDestroy() {
+        super.onDestroy()
+        vm.insertLastGame()
+    }
 }
 
 object Score {
