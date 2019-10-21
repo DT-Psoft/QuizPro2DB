@@ -33,21 +33,6 @@ class LoginActivity : AppCompatActivity() {
         val db = AppDatabase.getAppDatabase(this)
 
 
-        //----- ESTO SOLO SE HACE UNA VEZ, SI YA LO HICISTE COMENTALO Y DESCOMENTA LO DE ABAJO -------
-
-        //Kike : meto un usuario
-        db.UserDAO().InsertUserWithConfig(UserETY("FED", 1, 2131230842))
-        db.UserDAO().InsertUserWithConfig(UserETY("QWE", 0, 2131230842))
-
-        //inserto una nueva configuracion (Recuerda que si quieres crear una configuration necesitas pasarle el id del usuario)
-
-        // ----- SI YA HICISTE LO DE ARRIBA SOLO HAZ ESTO Y COMENTA LO DE ARRIBA -------
-        AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLogged() as UserETY)
-        AppDatabase.setCurrentConfiguration(
-            db.User_ConfigurationDAO().getConfigurationByUserId(
-                AppDatabase.getCurrentUser().id_user
-            )
-        )
 
 
 //        AppDatabase.getLoginUser()
@@ -75,6 +60,13 @@ class LoginActivity : AppCompatActivity() {
                     login.is_logged = 1
                     db.UserDAO().UpdateUser(useridLogged)
                     db.UserDAO().UpdateUser(login)
+
+                    AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLogged() as UserETY)
+                    AppDatabase.setCurrentConfiguration(
+                        db.User_ConfigurationDAO().getConfigurationByUserId(
+                            AppDatabase.getCurrentUser().id_user
+                        )
+                    )
                     val intentMain = Intent(this, MainActivity::class.java)
                     startActivity(intentMain)
                 }
