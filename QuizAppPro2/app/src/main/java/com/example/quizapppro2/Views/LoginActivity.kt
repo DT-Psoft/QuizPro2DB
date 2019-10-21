@@ -64,12 +64,7 @@ class LoginActivity : AppCompatActivity() {
                     db.UserDAO().UpdateUser(useridLogged)
                     db.UserDAO().UpdateUser(login)
                 }
-                AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLoggedNullable())
-                AppDatabase.setCurrentConfiguration(
-                    db.User_ConfigurationDAO().getConfigurationByUserId(
-                        AppDatabase.getCurrentUser().id_user
-                    )
-                )
+
                 val intentMain = Intent(this, MainActivity::class.java)
                 startActivity(intentMain)
             }

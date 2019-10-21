@@ -1,6 +1,8 @@
 package com.example.quizapppro2.ViewModels
 
 import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.example.quizapppro2.Class.AppDatabase
 import com.example.quizapppro2.R
@@ -154,6 +156,7 @@ class GameViewModel() : ViewModel() {
             currentClue,user.id_user,
             1
             ))
+        Log.d("Hola","${gameQuestionClass.size}")
         for(item in gameQuestionClass){
             var id_lastgamequestion = db.LastGame_QuestionDAO().insertLastGameQuestion(
                 LastGame_QuestionETY(

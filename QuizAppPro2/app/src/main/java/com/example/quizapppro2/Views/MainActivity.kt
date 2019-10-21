@@ -13,6 +13,7 @@ import com.example.quizapppro2.Class.Game_Configuration
 import com.facebook.stetho.Stetho
 
 import com.example.quizapppro2.Class.Entities.CategoryETY
+import com.example.quizapppro2.Class.Entities.LastGameETY
 import com.example.quizapppro2.Class.Entities.UserETY
 import com.example.quizapppro2.Class.Entities.User_ConfigurationETY
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,19 +34,27 @@ class MainActivity : AppCompatActivity() {
     var conf = Game_Configuration()
     lateinit var imageViewUserIcon: ImageView
     lateinit var textViewUserName: TextView
-    val db = AppDatabase.getAppDatabase(this).UserDAO()
-
+    val db = AppDatabase.getAppDatabase(this)
+    var gameInCourseActive = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var currentUser = db.getUserByIsLogged()
+        var currentUser = db.UserDAO().getUserByIsLogged()
         var userName=currentUser!!.user_name
         var userIcon=currentUser!!.image_user
         val imageButtonButtonOptions: ImageButton = findViewById(R.id.imageButton_options)
         val imageButtonLogout: ImageButton = findViewById(R.id.imageButton_logout)
         textViewUserName = findViewById(R.id.textView_userName)
         imageViewUserIcon = findViewById(R.id.imageView_userIcon)
+
+
+        AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLoggedNullable())
+        AppDatabase.setCurrentConfiguration(
+            db.User_ConfigurationDAO().getConfigurationByUserId(
+                AppDatabase.getCurrentUser().id_user
+            )
+        )
 
         textViewUserName.text=userName
         imageViewUserIcon.setImageResource(userIcon)
@@ -57,9 +66,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         val btnOpenActivityJuego: Button = findViewById(R.id.btn_start_game_activity)
+
+
         btnOpenActivityJuego.setOnClickListener {
+
             val intentJuego = Intent(this, QuizGameActivity::class.java)
-            startActivityForResult(intentJuego, GAMEACTIVITY_REQUEST_CODE)
+            var aux = db.LastGameDAO().getLastgameByUserId(AppDatabase.getCurrentUser().id_user)
+            if(aux == null)
+            {
+                intentJuego.putExtra("idlastgame", -1)
+                startActivity(intentJuego)
+            }
+            else{
+               gameInCourse(aux)
+            }
+
         }
         val btnOpenActivityScoreboard: Button = findViewById(R.id.btn_start_scoreboard_activity)
         btnOpenActivityScoreboard.setOnClickListener {
@@ -94,8 +115,8 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Si", DialogInterface.OnClickListener { dialog, i ->
                 //set what would happen when positive button is clicked
                 CurrUser.is_logged = 0
-                db.UpdateUser(CurrUser)
-                if (db.getUserByIsLogged()== null){
+                db.UserDAO().UpdateUser(CurrUser)
+                if (db.UserDAO().getUserByIsLogged()== null){
                     finish()
                 }else Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show()
             })
@@ -103,6 +124,39 @@ class MainActivity : AppCompatActivity() {
             .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->
                 //set what should happen when negative button is clicked
                 Toast.makeText(applicationContext, "Ninguna Accion", Toast.LENGTH_LONG).show()
+            })
+            .show()
+
+    }
+    private fun gameInCourse(lastGame: LastGameETY){
+
+        val intentJuego = Intent(this, QuizGameActivity::class.java)
+        var aux = -1
+        val alertDialog = AlertDialog.Builder(this)
+            //set icon
+            .setIcon(R.drawable.ic_logout)
+            //set title
+            .setTitle("Juego en curso")
+            //set message
+            .setMessage("Parece que tienes un juego en curso, ¿Deseas continuar?")
+            //set positive button
+            .setPositiveButton("Sí", DialogInterface.OnClickListener { dialog, i ->
+                //set what would happen when positive button is clicked
+                gameInCourseActive = 0
+                intentJuego.putExtra("idlastgame", lastGame.id_lastgame)
+                startActivity(intentJuego)
+
+            })
+            //set negative button
+            .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->
+                //set what should happen when negative button is clicked
+                gameInCourseActive = 1
+                lastGame.is_active = 0
+                db.LastGameDAO().updateLastGame(lastGame)
+                Toast.makeText(applicationContext, "Nuevo juego", Toast.LENGTH_LONG).show()
+                startActivity(intentJuego)
+
+
             })
             .show()
 

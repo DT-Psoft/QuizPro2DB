@@ -18,17 +18,6 @@ import com.example.quizapppro2.R
 
 class QuizGameActivity : AppCompatActivity() {
 
-//    protected inline fun <VM : ViewModel> viewModelFactory(crossinline f: () -> VM) =
-//        object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel> create(aClass: Class<T>): T = f() as T
-//        }
-//
-//    private val vm by lazy {
-//        ViewModelProviders.of(
-//            this,
-//            viewModelFactory { GameViewModel(this) }
-//        ).get(GameViewModel::class.java)
-//    }
 
     private lateinit var vm: GameViewModel
 
@@ -236,6 +225,7 @@ class QuizGameActivity : AppCompatActivity() {
         vm.setAnsweredAt(vm.getCurrentQuestionNum(), answered)
         buttonsAreEnabled(false)
         if (vm.answeredCont == vm.numOfQuestion) {
+            vm.gameFinished = true
             val intentName = Intent(this, NameActivity::class.java)
             startActivityForResult(intentName, NAMEACTIVITY_REQUEST_CODE)
         }
@@ -261,7 +251,9 @@ class QuizGameActivity : AppCompatActivity() {
     override
     fun onDestroy() {
         super.onDestroy()
-        vm.insertLastGame()
+        if(!vm.gameFinished){
+            vm.insertLastGame()
+        }
     }
 }
 
