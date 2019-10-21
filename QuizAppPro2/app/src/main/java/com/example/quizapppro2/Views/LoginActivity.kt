@@ -7,7 +7,9 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.example.quizapppro2.Class.AppDatabase
+import com.example.quizapppro2.Class.DAO.UserDAO
 import com.example.quizapppro2.Class.Entities.UserETY
+import com.example.quizapppro2.Class.Entities.User_ConfigurationETY
 import com.example.quizapppro2.R
 import com.facebook.stetho.Stetho
 import com.google.android.material.textfield.TextInputEditText
@@ -35,13 +37,8 @@ class LoginActivity : AppCompatActivity() {
 
         //Kike : meto un usuario
        db.UserDAO().InsertUserWithConfig(UserETY("fed", 1, 1))
-    //    db.UserDAO().InsertUserWithConfig(UserETY("kik", 1, 1))
-    //    db.UserDAO().InsertUserWithConfig(UserETY("cri", 1, 1))
-    //    db.UserDAO().InsertUserWithConfig(UserETY("ken", 1, 1))
+
         //inserto una nueva configuracion (Recuerda que si quieres crear una configuration necesitas pasarle el id del usuario)
-//        db.User_ConfigurationDAO().AddConfiguration(
-//            User_ConfigurationETY(
-//                db.UserDAO().getUserByIsLogged().id_user))
 
         // ----- SI YA HICISTE LO DE ARRIBA SOLO HAZ ESTO Y COMENTA LO DE ARRIBA -------
         AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLogged())
@@ -51,33 +48,47 @@ class LoginActivity : AppCompatActivity() {
 
 
         AppDatabase.getLoginUser()
-
-        val username2 : Array<UserETY> = db.UserDAO().getAllUsers()
+     //   val username2 : Array<UserETY> = db.UserDAO().getAllUsers()
 
         val btnOpenMenu : Button = findViewById(R.id.btn_login)
         btnOpenMenu.setOnClickListener{
-            for(i in username2.indices) {
-                val login = username2[i]
-                if (login.user_name == editTextUserName.text.toString()) {
-                    val intentMain = Intent(this, MainActivity::class.java)
-                    startActivityForResult(intentMain, OPTIONSACTIVITY_REQUEST_CODE)
+        val username2 = db.UserDAO().getUserByName(editTextUserName.text.toString())
+      //      for(i in username2.indices) {
+                val login = username2
 
-                    Toast.makeText(
-                        this,
-                        "Inicio Exitoso",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                if (login == null) {
 
-                    break
+
+
+                }else if (login != null)
+                {
+                    if(login.is_logged == 0) {
+                        login.is_logged = 1
+
+                        val intentMain = Intent(this, MainActivity::class.java)
+                        startActivityForResult(intentMain, OPTIONSACTIVITY_REQUEST_CODE)
+
+                        db.User_ConfigurationDAO().AddConfiguration(
+                            User_ConfigurationETY(
+                                db.UserDAO().getUserByIsLogged().id_user)
+                        )
+                    }
+                    else {
+                        login.is_logged = 0
+                    }
                 }
+
+
+
+
                 if (login.user_name != editTextUserName.text.toString()) {
                     Toast.makeText(
                         this,
-                        "Usuario incorrecto, intente denuevo o registre un usuario",
+                        "Usuario no creado",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            }
+        //    }
 
         }
 
