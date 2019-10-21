@@ -33,59 +33,60 @@ class LoginActivity : AppCompatActivity() {
         // => Obtener referencia a base de datos basada en librería Room
         val db = AppDatabase.getAppDatabase(this)
         //better performance?
+
+
+//        AppDatabase.getLoginUser()
+        val btnOpenMenu: Button = findViewById(R.id.btn_login)
+
+        btnOpenMenu.setOnClickListener {
+
+            val username2: UserETY? =
+                db.UserDAO().getUserByName(editTextUserName.text.toString())
+            //      for(i in username2.indices) {
+            val login = username2
+            var useridLogged = db.UserDAO().getUserByIsLogged()
+
+            if (login == null) {
+                Toast.makeText(
+                    this,
+                    "Datos incorrectos",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            } else {
+                //useridLogged.is_logged = 1
+                if (useridLogged == null) {
+                    login.is_logged = 1
+                    db.UserDAO().UpdateUser(login)
+                } else {
+                    useridLogged.is_logged = 0
+                    login.is_logged = 1
+                    db.UserDAO().UpdateUser(useridLogged)
+                    db.UserDAO().UpdateUser(login)
+                }
+                AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLoggedNullable())
+                AppDatabase.setCurrentConfiguration(
+                    db.User_ConfigurationDAO().getConfigurationByUserId(
+                        AppDatabase.getCurrentUser().id_user
+                    )
+                )
+                val intentMain = Intent(this, MainActivity::class.java)
+                startActivity(intentMain)
+            }
+        }
+
+        val textRegistrar: Button = findViewById(R.id.textview_sing_up)
+        textRegistrar.setOnClickListener {
+
+            val intentSignUp = Intent(applicationContext, SingUpActivity::class.java)
+            startActivity(intentSignUp)
+
+        }
+
         if (db.UserDAO().getUserByIsLogged() != null) {
             val intentMain = Intent(this, MainActivity::class.java)
             startActivity(intentMain)
         } else {
-
-
-//        AppDatabase.getLoginUser()
-            val btnOpenMenu: Button = findViewById(R.id.btn_login)
-
-            btnOpenMenu.setOnClickListener {
-
-                val username2: UserETY? =
-                    db.UserDAO().getUserByName(editTextUserName.text.toString())
-                //      for(i in username2.indices) {
-                val login = username2
-                var useridLogged = db.UserDAO().getUserByIsLogged()
-
-                if (login == null) {
-                    Toast.makeText(
-                        this,
-                        "Datos incorrectos",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                } else {
-                    //useridLogged.is_logged = 1
-                    if (useridLogged == null) {
-                        login.is_logged = 1
-                        db.UserDAO().UpdateUser(login)
-                    } else {
-                        useridLogged.is_logged = 0
-                        login.is_logged = 1
-                        db.UserDAO().UpdateUser(useridLogged)
-                        db.UserDAO().UpdateUser(login)
-                    }
-                    AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLoggedNullable())
-                    AppDatabase.setCurrentConfiguration(
-                        db.User_ConfigurationDAO().getConfigurationByUserId(
-                            AppDatabase.getCurrentUser().id_user
-                        )
-                    )
-                    val intentMain = Intent(this, MainActivity::class.java)
-                    startActivity(intentMain)
-                }
-            }
-
-            val textRegistrar: Button = findViewById(R.id.textview_sing_up)
-            textRegistrar.setOnClickListener {
-
-                val intentSignUp = Intent(applicationContext, SingUpActivity::class.java)
-                startActivity(intentSignUp)
-
-            }
 
 
         }
