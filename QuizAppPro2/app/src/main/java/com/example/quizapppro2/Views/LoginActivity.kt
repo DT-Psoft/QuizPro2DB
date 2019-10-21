@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.quizapppro2.Class.AppDatabase
 import com.example.quizapppro2.Class.Entities.UserETY
+import com.example.quizapppro2.Class.Entities.User_ConfigurationETY
 import com.example.quizapppro2.R
 import com.facebook.stetho.Stetho
 import com.google.android.material.textfield.TextInputEditText
@@ -18,6 +19,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        this.deleteDatabase("quizzapp.db")
 
     //   var editTextUserName = findViewById(R.id.textinp_user_name) as TextInputLayout
         val editTextUserName = findViewById<TextInputEditText>(R.id.textinp_user_name)
@@ -39,9 +42,10 @@ class LoginActivity : AppCompatActivity() {
         db.UserDAO().InsertUserWithConfig(UserETY("cristian", 1, 1))
         db.UserDAO().InsertUserWithConfig(UserETY("kenobi", 1, 1))
         //inserto una nueva configuracion (Recuerda que si quieres crear una configuration necesitas pasarle el id del usuario)
-//        db.User_ConfigurationDAO().AddConfiguration(
-//            User_ConfigurationETY(
-//                db.UserDAO().getUserByIsLogged().id_user))
+        db.User_ConfigurationDAO().AddConfiguration(
+            User_ConfigurationETY(
+                db.UserDAO().getUserByIsLogged().id_user)
+        )
 
         // ----- SI YA HICISTE LO DE ARRIBA SOLO HAZ ESTO Y COMENTA LO DE ARRIBA -------
         AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLogged())
@@ -49,31 +53,30 @@ class LoginActivity : AppCompatActivity() {
             db.User_ConfigurationDAO().getConfigurationByUserId(
                 AppDatabase.getCurrentUser().id_user))
 
+        AppDatabase.getCurrentUser().is_logged = 0
+
 
         AppDatabase.getLoginUser()
 
-        val username2 : UserETY = db.UserDAO().getUserByName(editTextUserName.text.toString())
+        val username2 : Array<UserETY> = db.UserDAO().getAllUsers()
 
         val btnOpenMenu : Button = findViewById(R.id.btn_login)
         btnOpenMenu.setOnClickListener{
-           // for(i in username2.indices) {
-         //       val login = username2[i]
-            val login = username2
+            for(i in username2.indices) {
+                val login = username2[i]
                 if (login.user_name == editTextUserName.text.toString()) {
                     val intentMain = Intent(this, MainActivity::class.java)
                     startActivityForResult(intentMain, OPTIONSACTIVITY_REQUEST_CODE)
-
-
-        //            break
+                    break
                 }
                 if (login.user_name != editTextUserName.text.toString()) {
                     Toast.makeText(
                         this,
-                        "Usuario no existe",
+                        "Usuario incorrecto",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-           // }
+            }
 
         }
 
