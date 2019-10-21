@@ -64,6 +64,7 @@
                 android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@color/color_icon3"
                 android:foreground="@drawable/ic_launcher_background"
                 android:foregroundTint="#B3020202"
                 android:scaleType="fitCenter"
