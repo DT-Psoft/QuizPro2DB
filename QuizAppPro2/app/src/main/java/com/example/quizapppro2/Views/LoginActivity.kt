@@ -58,11 +58,14 @@ class LoginActivity : AppCompatActivity() {
 
                 if (login == null) {
 
+                    Toast.makeText(
+                        this,
+                        "Datos incorrectos",
+                        Toast.LENGTH_SHORT
+                    ).show()
 
-
-                }else if (login != null)
+                }else
                 {
-                    if(login.is_logged == 0) {
                         login.is_logged = 1
 
                         val intentMain = Intent(this, MainActivity::class.java)
@@ -72,12 +75,7 @@ class LoginActivity : AppCompatActivity() {
                             User_ConfigurationETY(
                                 db.UserDAO().getUserByIsLogged().id_user)
                         )
-                    }
-                    else {
-                        login.is_logged = 0
-                    }
                 }
-
 
 
 
