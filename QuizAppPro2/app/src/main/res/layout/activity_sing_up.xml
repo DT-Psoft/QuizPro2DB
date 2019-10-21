@@ -22,8 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="1. - Selecciona tu icono de Avatar" />
+            android:text="1. - Selecciona tu icono de Avatar"
+            android:textColor="@color/colorPrimaryDark" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,6 +64,7 @@
                 android:layout_height="95dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@color/color_icon3"
                 android:foreground="@drawable/ic_launcher_background"
                 android:foregroundTint="#B3020202"
                 android:scaleType="fitCenter"
@@ -133,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="2. - Ingresa tus Datos"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:textColor="@color/colorPrimaryDark" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinp_newUserName"
@@ -174,6 +175,7 @@
 
     <Button
         android:id="@+id/btn_Signup"
+        style="@style/DarkButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
