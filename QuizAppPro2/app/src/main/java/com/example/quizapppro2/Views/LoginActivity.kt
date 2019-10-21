@@ -8,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.quizapppro2.Class.AppDatabase
 import com.example.quizapppro2.Class.Entities.UserETY
-import com.example.quizapppro2.Class.Entities.User_ConfigurationETY
 import com.example.quizapppro2.R
 import com.facebook.stetho.Stetho
 import com.google.android.material.textfield.TextInputEditText
@@ -19,8 +18,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        this.deleteDatabase("quizzapp.db")
 
     //   var editTextUserName = findViewById(R.id.textinp_user_name) as TextInputLayout
         val editTextUserName = findViewById<TextInputEditText>(R.id.textinp_user_name)
@@ -37,23 +34,20 @@ class LoginActivity : AppCompatActivity() {
         //----- ESTO SOLO SE HACE UNA VEZ, SI YA LO HICISTE COMENTALO Y DESCOMENTA LO DE ABAJO -------
 
         //Kike : meto un usuario
-       db.UserDAO().InsertUserWithConfig(UserETY("fede", 1, 1))
-        db.UserDAO().InsertUserWithConfig(UserETY("kike", 1, 1))
-        db.UserDAO().InsertUserWithConfig(UserETY("cristian", 1, 1))
-        db.UserDAO().InsertUserWithConfig(UserETY("kenobi", 1, 1))
+       db.UserDAO().InsertUserWithConfig(UserETY("fed", 1, 1))
+    //    db.UserDAO().InsertUserWithConfig(UserETY("kik", 1, 1))
+    //    db.UserDAO().InsertUserWithConfig(UserETY("cri", 1, 1))
+    //    db.UserDAO().InsertUserWithConfig(UserETY("ken", 1, 1))
         //inserto una nueva configuracion (Recuerda que si quieres crear una configuration necesitas pasarle el id del usuario)
-        db.User_ConfigurationDAO().AddConfiguration(
-            User_ConfigurationETY(
-                db.UserDAO().getUserByIsLogged().id_user)
-        )
+//        db.User_ConfigurationDAO().AddConfiguration(
+//            User_ConfigurationETY(
+//                db.UserDAO().getUserByIsLogged().id_user))
 
         // ----- SI YA HICISTE LO DE ARRIBA SOLO HAZ ESTO Y COMENTA LO DE ARRIBA -------
         AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLogged())
         AppDatabase.setCurrentConfiguration(
             db.User_ConfigurationDAO().getConfigurationByUserId(
                 AppDatabase.getCurrentUser().id_user))
-
-        AppDatabase.getCurrentUser().is_logged = 0
 
 
         AppDatabase.getLoginUser()
@@ -67,12 +61,19 @@ class LoginActivity : AppCompatActivity() {
                 if (login.user_name == editTextUserName.text.toString()) {
                     val intentMain = Intent(this, MainActivity::class.java)
                     startActivityForResult(intentMain, OPTIONSACTIVITY_REQUEST_CODE)
+
+                    Toast.makeText(
+                        this,
+                        "Inicio Exitoso",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
                     break
                 }
                 if (login.user_name != editTextUserName.text.toString()) {
                     Toast.makeText(
                         this,
-                        "Usuario incorrecto",
+                        "Usuario incorrecto, intente denuevo o registre un usuario",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
