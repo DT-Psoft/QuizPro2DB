@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             val username2: UserETY? = db.UserDAO().getUserByName(editTextUserName.text.toString())
             //      for(i in username2.indices) {
             val login = username2
-            var useridLogged = db.UserDAO().getUserByIsLogged() as UserETY
+            var useridLogged = db.UserDAO().getUserByIsLogged()
 
             if (login == null) {
                 Toast.makeText(
@@ -54,22 +54,22 @@ class LoginActivity : AppCompatActivity() {
                 //useridLogged.is_logged = 1
                 if (useridLogged == null){
                     login.is_logged = 1
+                    db.UserDAO().UpdateUser(login)
                 }
                 else{
                     useridLogged.is_logged = 0
                     login.is_logged = 1
                     db.UserDAO().UpdateUser(useridLogged)
                     db.UserDAO().UpdateUser(login)
-
-                    AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLogged() as UserETY)
-                    AppDatabase.setCurrentConfiguration(
-                        db.User_ConfigurationDAO().getConfigurationByUserId(
-                            AppDatabase.getCurrentUser().id_user
-                        )
-                    )
-                    val intentMain = Intent(this, MainActivity::class.java)
-                    startActivity(intentMain)
                 }
+                AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLoggedNullable())
+                AppDatabase.setCurrentConfiguration(
+                    db.User_ConfigurationDAO().getConfigurationByUserId(
+                        AppDatabase.getCurrentUser().id_user
+                    )
+                )
+                val intentMain = Intent(this, MainActivity::class.java)
+                startActivity(intentMain)
             }
         }
 
