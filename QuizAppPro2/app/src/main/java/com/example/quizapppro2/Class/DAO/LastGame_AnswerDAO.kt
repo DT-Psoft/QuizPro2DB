@@ -9,4 +9,6 @@ import com.example.quizapppro2.Class.Entities.LastGame_AnswerETY
 
 @Dao
 interface LastGame_AnswerDAO {
+    @Query("SELECT * FROM lastgame_answer ORDER BY id_lastgame_answer")
+    fun getAll(): List<LastGame_AnswerETY>
 }

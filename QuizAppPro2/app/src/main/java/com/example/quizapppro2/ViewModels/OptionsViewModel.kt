@@ -13,7 +13,6 @@ class OptionsViewModel(context: Context) : ViewModel() {
     private var db: AppDatabase =  AppDatabase.getAppDatabase(context)
 
     var configuration = User_ConfigurationETY(AppDatabase.getCurrentConfiguration().user_id)
-    lateinit var user: UserETY
 
     var categories: Array<Boolean> = arrayOf(true,true,true,true,true,true)
     var categoriesNumber = 6

@@ -9,4 +9,6 @@ import com.example.quizapppro2.Class.Entities.ScoreBoardETY
 
 @Dao
 interface ScoreBoardDAO {
+    @Query("SELECT * FROM scoreboard")
+    fun getAll(): MutableList<ScoreBoardETY>
 }
