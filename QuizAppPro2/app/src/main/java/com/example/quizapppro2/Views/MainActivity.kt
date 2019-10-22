@@ -36,17 +36,28 @@ class MainActivity : AppCompatActivity() {
     lateinit var textViewUserName: TextView
     val db = AppDatabase.getAppDatabase(this)
     var gameInCourseActive = -1
+    var currentUser = db.UserDAO().getUserByIsLogged()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var currentUser = db.UserDAO().getUserByIsLogged()
-        var userName=currentUser!!.user_name
-        var userIcon=currentUser!!.image_user
-        val imageButtonButtonOptions: ImageButton = findViewById(R.id.imageButton_options)
-        val imageButtonLogout: ImageButton = findViewById(R.id.imageButton_logout)
         textViewUserName = findViewById(R.id.textView_userName)
         imageViewUserIcon = findViewById(R.id.imageView_userIcon)
+
+        //USUARIO ACTUAL
+
+
+        updateUserPanel(currentUser!!.user_name, currentUser!!.image_user)
+
+        val imageButtonButtonOptions: ImageButton = findViewById(R.id.imageButton_options)
+
+        imageButtonButtonOptions.setOnClickListener {
+            val intentOptions = Intent(applicationContext, EditUserActivity::class.java)
+            startActivity(intentOptions)
+        }
+        val imageButtonLogout: ImageButton = findViewById(R.id.imageButton_logout)
+
 
 
         AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLoggedNullable())
@@ -55,9 +66,9 @@ class MainActivity : AppCompatActivity() {
                 AppDatabase.getCurrentUser().id_user
             )
         )
+//PANEL DE USUARIO SETEADO
 
-        textViewUserName.text=userName
-        imageViewUserIcon.setImageResource(userIcon)
+
         imageButtonLogout.setOnClickListener { onUserLogout(currentUser!!) } //!! = SE QUE DEBE ESTAR LOGGEADO, NO PUEDE DEVOLVER NULL
         val btnOpenActivity: Button = findViewById(R.id.btn_start_new_activity)
         btnOpenActivity.setOnClickListener {
@@ -72,13 +83,11 @@ class MainActivity : AppCompatActivity() {
 
             val intentJuego = Intent(this, QuizGameActivity::class.java)
             var aux = db.LastGameDAO().getLastgameByUserId(AppDatabase.getCurrentUser().id_user)
-            if(aux == null)
-            {
+            if (aux == null) {
                 intentJuego.putExtra("idlastgame", -1)
                 startActivity(intentJuego)
-            }
-            else{
-               gameInCourse(aux)
+            } else {
+                gameInCourse(aux)
             }
 
         }
@@ -102,6 +111,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        currentUser = db.UserDAO().getUserByIsLogged()
+        updateUserPanel(currentUser!!.user_name, currentUser!!.image_user)
+    }
+
     private fun onUserLogout(CurrUser: UserETY) {
 
         val alertDialog = AlertDialog.Builder(this)
@@ -116,9 +131,9 @@ class MainActivity : AppCompatActivity() {
                 //set what would happen when positive button is clicked
                 CurrUser.is_logged = 0
                 db.UserDAO().UpdateUser(CurrUser)
-                if (db.UserDAO().getUserByIsLogged()== null){
+                if (db.UserDAO().getUserByIsLogged() == null) {
                     finish()
-                }else Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show()
+                } else Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
             })
             //set negative button
             .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->
@@ -128,7 +143,8 @@ class MainActivity : AppCompatActivity() {
             .show()
 
     }
-    private fun gameInCourse(lastGame: LastGameETY){
+
+    private fun gameInCourse(lastGame: LastGameETY) {
 
         val intentJuego = Intent(this, QuizGameActivity::class.java)
         var aux = -1
@@ -181,6 +197,11 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Ninguna Accion", Toast.LENGTH_LONG).show()
             })
             .show()
+    }
+
+    private fun updateUserPanel(currUserName: String, currUserIcon: Int) {
+        textViewUserName.text = currUserName
+        imageViewUserIcon.setImageResource(currUserIcon)
     }
 }
 
