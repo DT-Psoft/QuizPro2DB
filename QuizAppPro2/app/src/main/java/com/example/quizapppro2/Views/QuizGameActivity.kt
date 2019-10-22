@@ -194,7 +194,6 @@ class QuizGameActivity : AppCompatActivity() {
     }
 
     private fun getExtra(){
-
         if (AppDatabase.lastgameaux != -1 ) {
             vm.setLastGame()
         }
@@ -207,7 +206,7 @@ class QuizGameActivity : AppCompatActivity() {
         buttonsAreEnabled(false)
         if (vm.answeredCont == vm.numOfQuestion) {
             vm.gameFinished = true
-            if(id_lastgame != -1){
+            if(AppDatabase.lastgameaux != -1){
                 vm.setLastGameInactive()
             }
             vm.insertScoreboard()
@@ -263,7 +262,10 @@ class QuizGameActivity : AppCompatActivity() {
     fun onBackPressed() {
         super.onBackPressed()
         if(vm.gameFinished){
-            vm.setLastGameInactive()
+            if(AppDatabase.lastgameaux != -1 ){
+                vm.setLastGameInactive()
+            }
+
         }
     }
 }
