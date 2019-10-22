@@ -19,12 +19,30 @@ class ScoreboardActivity : AppCompatActivity() {
         list = findViewById(R.id.score_listview)
 
         var db: AppDatabase = AppDatabase.getAppDatabase(this)
-        var scoreboard = db.ScoreBoardDAO().getAll()
+        var scoreboard = db.ScoreBoardDAO().getAllOrderByScore()
         var player_list : MutableList<Player_list> = mutableListOf()
-        for(i in scoreboard.indices){
-            var icon = if(scoreboard[i].cheater == 1) R.drawable.ic_joker else null
+        for (i in scoreboard.indices) {
+            var icon: Int? = if (scoreboard[i].cheater == 1) R.drawable.ic_joker else null
+            if(i == 0){
+                icon = if (scoreboard[i].cheater == 1) R.drawable.ic_joker else R.drawable.ic_trophy
+            }
+            if( i == 1){
+                icon = if (scoreboard[i].cheater == 1) R.drawable.ic_joker else R.drawable.ic_trophy
+            }
+            if( i == 2){
+                icon = if (scoreboard[i].cheater == 1) R.drawable.ic_joker else R.drawable.ic_trophy
+            }
+
+
             var aux = db.UserDAO().getUserById(scoreboard[i].user_id)
-            player_list.add(Player_list(aux.user_name, scoreboard[i].score.toString(), aux.image_user, icon))
+            player_list.add(
+                Player_list(
+                    aux.user_name,
+                    scoreboard[i].score.toString(),
+                    aux.image_user,
+                    icon
+                )
+            )
         }
         val valores = player_list.toTypedArray()
         list.adapter=MyListAdapter(this,valores)

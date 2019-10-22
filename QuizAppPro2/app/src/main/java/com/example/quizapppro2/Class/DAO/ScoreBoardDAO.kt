@@ -11,6 +11,12 @@ import com.example.quizapppro2.Class.Entities.ScoreBoardETY
 interface ScoreBoardDAO {
     @Query("SELECT * FROM scoreboard")
     fun getAll(): MutableList<ScoreBoardETY>
+
+    @Query("SELECT * FROM scoreboard ORDER BY score DESC")
+    fun getAllOrderByScore(): MutableList<ScoreBoardETY>
+    @Query("SELECT * FROM scoreboard ORDER BY score DESC LIMIT 6")
+    fun getAllOrderByScoreLimit6(): MutableList<ScoreBoardETY>
+
     @Query("SELECT*FROM scoreboard WHERE id_scoreboard = :id ")
     fun getScoreboardById(id:Int):ScoreBoardETY
 

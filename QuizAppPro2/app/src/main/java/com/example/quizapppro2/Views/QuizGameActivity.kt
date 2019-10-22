@@ -49,6 +49,7 @@ class QuizGameActivity : AppCompatActivity() {
 
     private fun updateQuestion() {
 
+        setBackgroundOnAnswered()
         var listCurrentAnswer = vm.currentListOfAnswerText as MutableList
         if(vm.currentQuestionClueUsed){
             answersButtons[vm.currentListOfAnswerText.indexOf(vm.currentClueString)].isEnabled = false
@@ -192,32 +193,6 @@ class QuizGameActivity : AppCompatActivity() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        when (requestCode){
-            NAMEACTIVITY_REQUEST_CODE ->{
-                when(resultCode){
-                    Activity.RESULT_CANCELED ->{
-                        finish()
-                        Toast.makeText(this, "Juego cancelado", Toast.LENGTH_SHORT).show()
-                    }
-                    Activity.RESULT_OK ->{
-                        vm.player.user_name= if(data?.getStringExtra(EXTRA_RESULT_TEXT).toString() == "")
-                            vm.player.user_name
-                        else data?.getStringExtra(EXTRA_RESULT_TEXT).toString()
-
-                        if(id_lastgame != -1){
-                            vm.setLastGameInactive()
-                        }
-                        vm.score.AddPlayer()
-//                        val intentScore = Intent(this, LeaderboardActivity::class.java)
-//                        startActivityForResult(intentScore, SCOREACTIVITY_REQUEST_CODE)
-                    }
-                }
-            }
-        }
-    }
     private fun getExtra(){
 
         if (AppDatabase.lastgameaux != -1 ) {
@@ -232,10 +207,14 @@ class QuizGameActivity : AppCompatActivity() {
         buttonsAreEnabled(false)
         if (vm.answeredCont == vm.numOfQuestion) {
             vm.gameFinished = true
+            if(id_lastgame != -1){
+                vm.setLastGameInactive()
+            }
             vm.insertScoreboard()
             val intentName = Intent(this, ScoreboardActivity::class.java)
             startActivityForResult(intentName, NAMEACTIVITY_REQUEST_CODE)
         }
+        setBackgroundOnAnswered()
 //        if(vm.getCurrentQuestionObject().isCorrect){
 //            background.setBackgroundColor(R.color.incorrect)
 //        }else{
@@ -243,13 +222,26 @@ class QuizGameActivity : AppCompatActivity() {
 //        }
     }
 
+    @SuppressLint("ResourceAsColor")
+    fun setBackgroundOnAnswered(){
+        if(!vm.getCurrentQuestionObject().state){
+            background.setBackgroundColor(Color.WHITE)
+        }
+        else{
+            if(vm.getCurrentQuestionObject().isCorrect){
+                background.setBackgroundColor(Color.GREEN)
+            }
+            else{
+                background.setBackgroundColor(Color.RED)
+            }
+        }
+    }
     fun buttonsAreEnabled(enabled: Boolean) {
         ansOneButton.isEnabled = enabled
         ansTwoButton.isEnabled = enabled
         ansThreeButton.isEnabled = enabled
         ansFourButton.isEnabled = enabled
     }
-
     fun getPositionOfCorrectAnswer() : Int{
         return vm.currentListOfAnswerText.indexOf(vm.getCorretAnswer())
     }
@@ -265,6 +257,13 @@ class QuizGameActivity : AppCompatActivity() {
         super.onDestroy()
         if(!vm.gameFinished){
             vm.insertLastGame()
+        }
+    }
+    override
+    fun onBackPressed() {
+        super.onBackPressed()
+        if(vm.gameFinished){
+            vm.setLastGameInactive()
         }
     }
 }

@@ -197,6 +197,7 @@ class GameViewModel() : ViewModel() {
         //var arrayOfLastGameAnswer= db.LastGame_AnswerDAO().getLastGameAnswerByLastGameQuestionId(lastgame.id_lastgame)
     }
     fun setLastGameInactive(){
+        lastgame = db.LastGameDAO().getLastgameByUserId(AppDatabase.getCurrentUser().id_user)
         lastgame.is_active = 0
         db.LastGameDAO().updateLastGame(lastgame)
     }

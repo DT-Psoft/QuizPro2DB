@@ -5,7 +5,6 @@
     android:id="@+id/backgroundQuestion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#68458F34"
     tools:context=".Views.QuizGameActivity">
 
     <FrameLayout
