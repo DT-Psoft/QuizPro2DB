@@ -1,12 +1,10 @@
 package com.example.quizapppro2.Views
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import com.example.quizapppro2.Class.AppDatabase
 import com.example.quizapppro2.R
 import kotlinx.android.synthetic.main.activity_edit_user.*
@@ -20,6 +18,7 @@ class EditUserActivity : AppCompatActivity() {
     lateinit var imageView_ic6: ImageView
     lateinit var editText_newName: EditText
     lateinit var imageView_prevIcon: ImageView
+    lateinit var imageButton_deleteUser:ImageButton
     var selectedIcon = 0
     lateinit var changeInfoButton: Button
     lateinit var currentImageView: ImageView
@@ -35,6 +34,7 @@ class EditUserActivity : AppCompatActivity() {
         imageView_ic5 = findViewById(R.id.imageView5)
         imageView_ic6 = findViewById(R.id.imageView6)
         imageView_prevIcon = findViewById(R.id.imageView_prevIcon)
+        imageButton_deleteUser = findViewById(R.id.imageButton_DeleteUser)
 
         editText_newName = findViewById(R.id.txtinp_newUser)
         changeInfoButton = findViewById(R.id.btn_ChangeInfo)
@@ -43,6 +43,8 @@ class EditUserActivity : AppCompatActivity() {
         currentImageView = imageView_ic1
         selectedIcon = currentUser!!.image_user
         imageView_prevIcon.setImageResource(currentUser!!.image_user)
+
+
         imageView_ic1.setOnClickListener {
             changeSelectedIcon(
                 imageView_ic1,
@@ -76,6 +78,9 @@ class EditUserActivity : AppCompatActivity() {
         }
         btn_ChangeInfo.setOnClickListener {
             validateSinguUp(editText_newName.text.toString())
+        }
+        imageButton_deleteUser.setOnClickListener {
+            onDeleteUser()
         }
     }
 
@@ -141,5 +146,12 @@ class EditUserActivity : AppCompatActivity() {
                 ).show()
             }
         }
+    }
+
+    private fun onDeleteUser(){
+        AppDatabase.getAppDatabase(this).UserDAO().deleteUserById(currentUser!!.id_user)
+        var intent = Intent(applicationContext, LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
     }
 }

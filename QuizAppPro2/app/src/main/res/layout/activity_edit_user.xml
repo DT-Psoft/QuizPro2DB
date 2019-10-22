@@ -40,10 +40,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinp_newUserName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtinp_newUser"
@@ -59,6 +62,14 @@
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ImageButton
+            android:id="@+id/imageButton_DeleteUser"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|center_vertical|end"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_delete"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
     </LinearLayout>
 
     <LinearLayout
