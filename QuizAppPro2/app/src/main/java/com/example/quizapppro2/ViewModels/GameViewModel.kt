@@ -16,7 +16,7 @@ class GameViewModel() : ViewModel() {
 
     var context = AppDatabase.context
     private var db: AppDatabase = AppDatabase.getAppDatabase(context)
-    var configuration = User_ConfigurationETY(AppDatabase.getCurrentConfiguration().id_user_config)
+    var configuration = db.User_ConfigurationDAO().getConfigurationByUserId(AppDatabase.getCurrentConfiguration().user_id)
     var user: UserETY =AppDatabase.getCurrentUser()
     var scoreboard = ScoreBoardETY(configuration.number_of_questions,user.id_user)
     lateinit var lastgame : LastGameETY
@@ -80,10 +80,7 @@ class GameViewModel() : ViewModel() {
                 arrayOfQuestions.add(db.CategoryDAO().getCategoryById(indice+1))
             }
         }
-//        val finalQuest: MutableList<CategoryETY> = mutableListOf()
-//        for ((indice, value) in arrayOfQuestions.withIndex()) {
-//            finalQuest.add(db.CategoryDAO().getCategoryById(indice))
-//        }
+
         arrayOfQuestions.shuffle()
 
         return setQuestions(arrayOfQuestions)
@@ -152,8 +149,9 @@ class GameViewModel() : ViewModel() {
             currentQuestion,
             configuration.clues_on,
             configuration.number_of_clues,
+            currentClue,
             scoreboard.score,
-            currentClue,user.id_user,
+            user.id_user,
             1
             ))
         Log.d("Hola","${gameQuestionClass.size}")
@@ -162,25 +160,28 @@ class GameViewModel() : ViewModel() {
                 LastGame_QuestionETY(
                     if(item.state) 1 else 0,
                     if(item.isCorrect) 1 else 0,
-                    getCurrentQuestionObject().question_id,
+                    item.question_id,
                     item.answered,
                     id_lastgame.toInt()))
         }
     }
 
-    fun setLastGame(idlastgame:Int){
-        lastgame = db.LastGameDAO().getLastgameById(idlastgame)
+    fun setLastGame(){
+
+        lastgame = db.LastGameDAO().getLastgameByUserId(AppDatabase.getCurrentUser().id_user)
         //buscamos el lastgame con el id pasado
         var arrayOfLastGameQuestion = db.LastGame_QuestionDAO().getLastGameQuestionsByLastGameId(lastgame.id_lastgame)
-        var aux = gameQuestionClass as MutableList
+        var aux :MutableList<QuestionETY> = mutableListOf()
         //buscamos las preguntas y las metemos en el array de preguntas del juego
         for(item in arrayOfLastGameQuestion){
             var question = db.QuestionDAO().getQuestionById(item.question_id)
+            Log.d("queestion", question.question_text)
             question.isCorrect = item.is_correct == 1
             question.answered = item.answer_by_user
-            question.state = item.answered == 1
+            question.state = item.answered != 0
             aux.add(question)
         }
+        gameQuestionClass = aux
         pointsValue = arrayOfPointsValue[configuration.dificulty]
 
         //seteandotodo lo de lastgame
@@ -188,8 +189,8 @@ class GameViewModel() : ViewModel() {
         configuration.number_of_questions = lastgame.number_of_questions
         answeredCont = lastgame.number_of_questions_answered
         currentQuestion = lastgame.current_question
-        configuration.number_of_clues = lastgame.clues_on
-        lastgame.number_of_clues
+        configuration.clues_on = lastgame.clues_on
+        configuration.number_of_clues =lastgame.number_of_clues
         currentClue = lastgame.clues_left
         scoreboard.score = lastgame.current_score
 
@@ -198,6 +199,13 @@ class GameViewModel() : ViewModel() {
     fun setLastGameInactive(){
         lastgame.is_active = 0
         db.LastGameDAO().updateLastGame(lastgame)
+    }
+    fun insertScoreboard(){
+        var aux = ScoreBoardETY(configuration.number_of_questions,AppDatabase.getCurrentUser().id_user)
+        aux.score = scoreboard.score
+        aux.cheater = scoreboard.cheater
+
+        db.ScoreBoardDAO().insertScoreboard(aux)
     }
 
 

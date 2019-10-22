@@ -12,6 +12,8 @@
     <color name="color_icon4">#FFB000</color>
     <color name="color_icon3">#e2bf91</color>
     <color name="color_icon2">#E86207</color>
+    <color name="incorrect">#688F3434</color>
+    <color name="correct">#68458F34</color>
 
 
 </resources>

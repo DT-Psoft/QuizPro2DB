@@ -1,19 +1,21 @@
 package com.example.quizapppro2.Views
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProviders
 import com.example.quizapppro2.Class.AppDatabase
 import com.example.quizapppro2.Class.GameResults
-import com.example.quizapppro2.ViewModels.GameViewModel
 import com.example.quizapppro2.R
+import com.example.quizapppro2.ViewModels.GameViewModel
 
 
 class QuizGameActivity : AppCompatActivity() {
@@ -22,6 +24,7 @@ class QuizGameActivity : AppCompatActivity() {
     private lateinit var vm: GameViewModel
 
     private lateinit var nextButton: Button
+    private lateinit var background: ConstraintLayout
     private lateinit var previousButton: Button
 
     private lateinit var answersButtons: Array<Button>
@@ -43,10 +46,9 @@ class QuizGameActivity : AppCompatActivity() {
     private var score: Int = 0
     private var cont: Int = 0
     var currentNumOfButtonsAvailables=0
-    private val bundle= intent
-
 
     private fun updateQuestion() {
+
         var listCurrentAnswer = vm.currentListOfAnswerText as MutableList
         if(vm.currentQuestionClueUsed){
             answersButtons[vm.currentListOfAnswerText.indexOf(vm.currentClueString)].isEnabled = false
@@ -97,6 +99,7 @@ class QuizGameActivity : AppCompatActivity() {
         questionContTextView.text =
             "Pregunta: ${vm.getCurrentQuestionNum() + 1}/${vm.numOfQuestion}"
         questionNumTextView.text = "Pregunta: ${vm.getCurrentQuestionNum() + 1}"
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,14 +110,7 @@ class QuizGameActivity : AppCompatActivity() {
         vm = ViewModelProviders.of(this).get(GameViewModel::class.java)
 
         //recibiendo el id del lastgame, si lo hubo
-        if(bundle!=null)
-        {
-            id_lastgame = bundle.getIntExtra("idlastgame", -1)
-            //si es -1 significa que no hubo
-            if(id_lastgame != -1){
-                vm.setLastGame(id_lastgame)
-            }
-        }
+        getExtra()
         //numero de botones dispoibles
         currentNumOfButtonsAvailables = when(vm.configuration.dificulty){
             0->5
@@ -127,6 +123,7 @@ class QuizGameActivity : AppCompatActivity() {
 
         nextButton = findViewById(R.id.nxt_Btn)
         previousButton = findViewById(R.id.prev_Btn)
+        background = findViewById(R.id.backgroundQuestion)
 
         ansOneButton = findViewById(R.id.answ1_btn)
         ansTwoButton = findViewById(R.id.answ2_btn)
@@ -141,6 +138,7 @@ class QuizGameActivity : AppCompatActivity() {
 
         cluesNumTextView.isEnabled =( (vm.configuration.clues_on == 1) && (vm.currentClue < vm.configuration.number_of_clues) ) || vm.currentQuestionClueUsed
         cluesNumTextView.text = if(vm.configuration.clues_on == 1) "Pistas: ${vm.currentClue}/${vm.numOfClues}" else "Pistas: 0/0"
+
         updateQuestion()
         cluesOnThisQuestion = !vm.currentQuestionClueUsed
         nextButton.setOnClickListener() {
@@ -191,6 +189,7 @@ class QuizGameActivity : AppCompatActivity() {
             }
 
         }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -211,24 +210,37 @@ class QuizGameActivity : AppCompatActivity() {
                         if(id_lastgame != -1){
                             vm.setLastGameInactive()
                         }
-
                         vm.score.AddPlayer()
-                        val intentScore = Intent(this, LeaderboardActivity::class.java)
-                        startActivityForResult(intentScore, SCOREACTIVITY_REQUEST_CODE)
+//                        val intentScore = Intent(this, LeaderboardActivity::class.java)
+//                        startActivityForResult(intentScore, SCOREACTIVITY_REQUEST_CODE)
                     }
                 }
             }
         }
     }
+    private fun getExtra(){
 
+        if (AppDatabase.lastgameaux != -1 ) {
+            vm.setLastGame()
+        }
+
+    }
+
+    @SuppressLint("ResourceAsColor")
     fun onAnswered(answered: String) {
         vm.setAnsweredAt(vm.getCurrentQuestionNum(), answered)
         buttonsAreEnabled(false)
         if (vm.answeredCont == vm.numOfQuestion) {
             vm.gameFinished = true
-            val intentName = Intent(this, NameActivity::class.java)
+            vm.insertScoreboard()
+            val intentName = Intent(this, ScoreboardActivity::class.java)
             startActivityForResult(intentName, NAMEACTIVITY_REQUEST_CODE)
         }
+//        if(vm.getCurrentQuestionObject().isCorrect){
+//            background.setBackgroundColor(R.color.incorrect)
+//        }else{
+//            background.setBackgroundColor(R.color.correct)
+//        }
     }
 
     fun buttonsAreEnabled(enabled: Boolean) {

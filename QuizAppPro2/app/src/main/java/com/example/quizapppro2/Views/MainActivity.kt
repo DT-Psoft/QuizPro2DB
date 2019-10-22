@@ -72,12 +72,17 @@ class MainActivity : AppCompatActivity() {
 
             val intentJuego = Intent(this, QuizGameActivity::class.java)
             var aux = db.LastGameDAO().getLastgameByUserId(AppDatabase.getCurrentUser().id_user)
-            if(aux == null)
+            if(aux == null )
             {
-                intentJuego.putExtra("idlastgame", -1)
+                AppDatabase.lastgameaux = -1
+                startActivity(intentJuego)
+            }
+            else if(aux.is_active == 0){
+                AppDatabase.lastgameaux = -1
                 startActivity(intentJuego)
             }
             else{
+
                gameInCourse(aux)
             }
 
@@ -141,22 +146,19 @@ class MainActivity : AppCompatActivity() {
             .setMessage("Parece que tienes un juego en curso, ¿Deseas continuar?")
             //set positive button
             .setPositiveButton("Sí", DialogInterface.OnClickListener { dialog, i ->
-                //set what would happen when positive button is clicked
-                gameInCourseActive = 0
+
+                AppDatabase.lastgameaux = lastGame.id_lastgame
                 intentJuego.putExtra("idlastgame", lastGame.id_lastgame)
                 startActivity(intentJuego)
 
             })
             //set negative button
             .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->
-                //set what should happen when negative button is clicked
-                gameInCourseActive = 1
+                AppDatabase.lastgameaux = -1
                 lastGame.is_active = 0
                 db.LastGameDAO().updateLastGame(lastGame)
                 Toast.makeText(applicationContext, "Nuevo juego", Toast.LENGTH_LONG).show()
                 startActivity(intentJuego)
-
-
             })
             .show()
 

@@ -12,10 +12,10 @@ class OptionsViewModel(context: Context) : ViewModel() {
     lateinit var context: Context
     private var db: AppDatabase =  AppDatabase.getAppDatabase(context)
 
-    var configuration = User_ConfigurationETY(AppDatabase.getCurrentConfiguration().user_id)
+    var configuration = db.User_ConfigurationDAO().getConfigurationByUserId(AppDatabase.getCurrentConfiguration().user_id)
 
     var categories: Array<Boolean> = arrayOf(true,true,true,true,true,true)
-    var categoriesNumber = 6
+    var categoriesNumber = 0
     val arrayQuestionsNumber : Array<Int> = arrayOf(5, 6, 7, 8, 9,10)
     val arrayCluesNumber = arrayOf(1, 2, 3)
 
@@ -25,12 +25,16 @@ class OptionsViewModel(context: Context) : ViewModel() {
     }
 
     private fun getCategoriesEnabled(){
+
         categories[0] = configuration.categories_selected[0] == '1'
         categories[1] = configuration.categories_selected[1] == '1'
         categories[2] = configuration.categories_selected[2] == '1'
         categories[3] = configuration.categories_selected[3] == '1'
         categories[4] = configuration.categories_selected[4] == '1'
         categories[5] = configuration.categories_selected[5] == '1'
+        for(item in categories){
+            if(item) categoriesNumber++
+        }
     }
 
     fun updateOptions(){
@@ -43,6 +47,7 @@ class OptionsViewModel(context: Context) : ViewModel() {
         string += if(categories[5]) "1" else "0"
 
         configuration.categories_selected = string
+        configuration.number_of_categories = categoriesNumber
         AppDatabase.setCurrentConfiguration(configuration)
         db.User_ConfigurationDAO().updateConfiguration(configuration)
     }
