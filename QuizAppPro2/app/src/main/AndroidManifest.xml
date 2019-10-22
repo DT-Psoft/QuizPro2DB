@@ -11,28 +11,25 @@
         android:supportsRtl="true"
         android:theme="@style/ModeloStyleDark"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Views.EditUserActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".Views.ScoreboardActivity"
             android:label="Puntuaciones Globales"
-            android:theme="@style/AppTheme"/>
-
+            android:theme="@style/AppTheme" />
         <activity android:name=".Views.NameActivity" />
-
         <activity android:name=".Views.LeaderboardActivity" />
-
         <activity android:name=".Views.QuizGameActivity" />
-
         <activity
             android:name=".Views.Opciones2"
             android:label="Configuraciones"
             android:theme="@style/AppTheme" />
-
-        <activity android:name=".Views.SingUpActivity" android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name=".Views.MainActivity"/>
-
-        <activity android:name=".Views.LoginActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".Views.SingUpActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Views.MainActivity" />
+        <activity
+            android:name=".Views.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
