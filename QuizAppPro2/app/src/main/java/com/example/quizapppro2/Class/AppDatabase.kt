@@ -34,6 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
 
+        var gameUserAux = 0
         var lastgameaux : Int? = -1
         private var INSTANCE: AppDatabase? = null
         lateinit var context: Context

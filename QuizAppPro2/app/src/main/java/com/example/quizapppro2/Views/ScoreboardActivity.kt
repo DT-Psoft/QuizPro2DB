@@ -18,8 +18,14 @@ class ScoreboardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_scoreboard)
         list = findViewById(R.id.score_listview)
 
+        var score_type:Int = 0
+        var bundle = intent.extras;
+        if (bundle != null) {
+            score_type = bundle.getInt("score_type")
+        }
+
         var db: AppDatabase = AppDatabase.getAppDatabase(this)
-        var scoreboard = db.ScoreBoardDAO().getAllOrderByScore()
+        var scoreboard = if(score_type == 1) db.ScoreBoardDAO().getAllOrderByScore() else db.ScoreBoardDAO().getAllOrderByScoreLimit6()
         var player_list : MutableList<Player_list> = mutableListOf()
         for (i in scoreboard.indices) {
             var icon: Int? = if (scoreboard[i].cheater == 1) R.drawable.ic_joker else null

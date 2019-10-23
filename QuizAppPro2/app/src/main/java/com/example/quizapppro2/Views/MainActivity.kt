@@ -36,17 +36,28 @@ class MainActivity : AppCompatActivity() {
     lateinit var textViewUserName: TextView
     val db = AppDatabase.getAppDatabase(this)
     var gameInCourseActive = -1
+    var currentUser = db.UserDAO().getUserByIsLogged()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var currentUser = db.UserDAO().getUserByIsLogged()
-        var userName = currentUser!!.user_name
-        var userIcon = currentUser!!.image_user
-        val imageButtonButtonOptions: ImageButton = findViewById(R.id.imageButton_options)
-        val imageButtonLogout: ImageButton = findViewById(R.id.imageButton_logout)
+
         textViewUserName = findViewById(R.id.textView_userName)
         imageViewUserIcon = findViewById(R.id.imageView_userIcon)
+
+//USUARIO ACTUAL
+
+
+        updateUserPanel(currentUser!!.user_name, currentUser!!.image_user)
+
+        val imageButtonButtonOptions: ImageButton = findViewById(R.id.imageButton_options)
+
+        imageButtonButtonOptions.setOnClickListener {
+            val intentOptions = Intent(applicationContext, EditUserActivity::class.java)
+            startActivity(intentOptions)
+        }
+        val imageButtonLogout: ImageButton = findViewById(R.id.imageButton_logout)
 
 
         AppDatabase.setCurrentUser(db.UserDAO().getUserByIsLoggedNullable())
@@ -56,8 +67,8 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        textViewUserName.text = userName
-        imageViewUserIcon.setImageResource(userIcon)
+        //textViewUserName.text = userName
+        //imageViewUserIcon.setImageResource(userIcon)
         imageButtonLogout.setOnClickListener { onUserLogout(currentUser!!) } //!! = SE QUE DEBE ESTAR LOGGEADO, NO PUEDE DEVOLVER NULL
         val btnOpenActivity: Button = findViewById(R.id.btn_start_new_activity)
         btnOpenActivity.setOnClickListener {
@@ -82,12 +93,12 @@ class MainActivity : AppCompatActivity() {
                 gameInCourse(aux)
             }
 
-
         }
         val btnOpenActivityScoreboard: Button = findViewById(R.id.btn_start_scoreboard_activity)
         btnOpenActivityScoreboard.setOnClickListener {
-            val intentscore = Intent(this, LeaderboardActivity::class.java)
-            startActivityForResult(intentscore, SCOREACTIVITY_REQUEST_CODE)
+            val intentscore = Intent(this, ScoreboardActivity::class.java)
+            intentscore.putExtra("score_type",1)
+            startActivity(intentscore)
         }
     }
 
@@ -102,6 +113,12 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        currentUser = db.UserDAO().getUserByIsLogged()
+        updateUserPanel(currentUser!!.user_name, currentUser!!.image_user)
     }
 
     private fun onUserLogout(CurrUser: UserETY) {
@@ -179,6 +196,10 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Ninguna Accion", Toast.LENGTH_LONG).show()
             })
             .show()
+    }
+    private fun updateUserPanel(currUserName: String, currUserIcon: Int) {
+        textViewUserName.text = currUserName
+        imageViewUserIcon.setImageResource(currUserIcon)
     }
 }
 

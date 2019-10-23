@@ -154,16 +154,16 @@ class QuizGameActivity : AppCompatActivity() {
         }
         //Botones de Posibles respuestas
         ansOneButton.setOnClickListener() {
-            onAnswered(ansOneButton.text as String)
+            onAnswered(ansOneButton.text.toString())
         }
         ansTwoButton.setOnClickListener() {
-            onAnswered(ansTwoButton.text as String)
+            onAnswered(ansTwoButton.text.toString())
         }
         ansThreeButton.setOnClickListener() {
-            onAnswered(ansThreeButton.text as String)
+            onAnswered(ansThreeButton.text.toString())
         }
         ansFourButton.setOnClickListener() {
-            onAnswered(ansFourButton.text as String)
+            onAnswered(ansFourButton.text.toString())
         }
 
         cluesNumTextView.setOnClickListener{
