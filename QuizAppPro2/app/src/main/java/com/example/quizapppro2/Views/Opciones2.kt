@@ -80,11 +80,11 @@ class Opciones2 : AppCompatActivity() {
    //   Categorias CheckBox logica
 
         todosCheckBox.isChecked = vmO.configuration.all_categories == 1
-        cineCheckBox.isChecked = vmO.categories[0]
-        historiaCheckBox.isChecked = vmO.categories[1]
-        matematicasCheckBox.isChecked = vmO.categories[2]
-        fisicaCheckBox.isChecked = vmO.categories[3]
-        na1CheckBox.isChecked = vmO.categories[4]
+        na1CheckBox.isChecked = vmO.categories[0]
+        fisicaCheckBox.isChecked = vmO.categories[1]
+        cineCheckBox.isChecked = vmO.categories[2]
+        matematicasCheckBox.isChecked = vmO.categories[3]
+        historiaCheckBox.isChecked = vmO.categories[4]
         na2CheckBox.isChecked = vmO.categories[5]
 
         todosCheckBox.setOnCheckedChangeListener { _, ischecked ->
@@ -98,20 +98,20 @@ class Opciones2 : AppCompatActivity() {
                 na2CheckBox.isChecked = true
             }
         }
-        cineCheckBox.setOnCheckedChangeListener { _, ischecked ->
-            onCheckedChangeListener(0, cineCheckBox)
-        }
-        historiaCheckBox.setOnCheckedChangeListener { _, ischecked ->
-            onCheckedChangeListener(1, historiaCheckBox)
-        }
-        matematicasCheckBox.setOnCheckedChangeListener { _, ischecked ->
-            onCheckedChangeListener(2, matematicasCheckBox)
+        na1CheckBox.setOnCheckedChangeListener { _, ischecked ->
+            onCheckedChangeListener(0, na1CheckBox)
         }
         fisicaCheckBox.setOnCheckedChangeListener { _, ischecked ->
-            onCheckedChangeListener(3, fisicaCheckBox)
+            onCheckedChangeListener(1, fisicaCheckBox)
         }
-        na1CheckBox.setOnCheckedChangeListener { _, ischecked ->
-            onCheckedChangeListener(4, na1CheckBox)
+        cineCheckBox.setOnCheckedChangeListener { _, ischecked ->
+            onCheckedChangeListener(2, cineCheckBox)
+        }
+        matematicasCheckBox.setOnCheckedChangeListener { _, ischecked ->
+            onCheckedChangeListener(3, matematicasCheckBox)
+        }
+        historiaCheckBox.setOnCheckedChangeListener { _, ischecked ->
+            onCheckedChangeListener(4, historiaCheckBox)
         }
         na2CheckBox.setOnCheckedChangeListener { _, ischecked ->
             onCheckedChangeListener(5, na2CheckBox)
